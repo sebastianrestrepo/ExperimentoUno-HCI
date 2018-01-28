@@ -180,6 +180,7 @@ public class Logica {
 			reiniciarTiempo();
 		}
 		//millis = t.getMillis();
+		t.validarTiempo();
 		tiempo = segundos + ":" + millis;
 		app.fill(255);
 		app.textAlign(app.LEFT, app.LEFT);
