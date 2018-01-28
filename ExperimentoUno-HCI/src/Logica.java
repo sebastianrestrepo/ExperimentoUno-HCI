@@ -167,7 +167,7 @@ public class Logica {
 			segundos++;
 			reiniciarTiempo();
 		}
-		millis = t.getMillis();
+		//millis = t.getMillis();
 		tiempo = segundos + ":" + millis;
 		app.fill(255);
 		app.textAlign(app.LEFT, app.LEFT);
@@ -176,7 +176,7 @@ public class Logica {
 	}
 
 	public void reiniciarTiempo() {
-		t.setMillis(0);
+		//t.setMillis(0);
 	}
 
 	public void mouse() {

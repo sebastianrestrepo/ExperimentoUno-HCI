@@ -1,25 +1,13 @@
 
 public class Timer extends Thread {
 
-	private int millis;
-
-	public void run() {
-		while (true) {
-			try {
-				millis++;
-				sleep(1);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public int getMillis() {
-		return millis;
-	}
-
-	public void setMillis(int millis) {
-		this.millis = millis;
+	public Timer() {
+		long startTime = System.nanoTime();
+		Thread.sleep(1000 * 10);
+		long difference = System.nanoTime() - startTime;
+		System.out.println("Total execution time: " + String.format("%d min, %d sec",
+				TimeUnit.NANOSECONDS.toHours(difference), TimeUnit.NANOSECONDS.toSeconds(difference)
+						- TimeUnit.MINUTES.toSeconds(TimeUnit.NANOSECONDS.toMinutes(difference))));
 	}
 
 }
