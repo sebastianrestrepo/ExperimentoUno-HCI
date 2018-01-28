@@ -1,5 +1,6 @@
 import processing.core.PApplet;
 import processing.core.PFont;
+import processing.core.PImage;
 
 public class Logica {
 
@@ -12,6 +13,7 @@ public class Logica {
 	
 	private PFont dosisFuente,dosisFuenteReg;
 	private int x,y;
+	private PImage imgs[];
 	
 	
 	public Logica(PApplet app) {
@@ -21,10 +23,19 @@ public class Logica {
 		tareaTerminada = false;
 		
 		inicializarVars();
-		
+		cargarImgs();
 		cargarfuente();
+		app.imageMode(app.CENTER);
 	}
 	
+	private void cargarImgs() {
+		imgs = new PImage[5];
+
+		for (int i = 0; i < imgs.length; i++) {
+			imgs[i] = app.loadImage("../data/n" + i + ".png");
+		}
+	}
+
 	private void inicializarVars() {
 		 nivel = 0;
 		 y=app.height/2;
@@ -41,6 +52,7 @@ public class Logica {
 	}
 
 	public void pantallas() {
+		app.image(imgs[0], x, y);
 		switch (nivel) {
 		//Inicio
 		case 0:
