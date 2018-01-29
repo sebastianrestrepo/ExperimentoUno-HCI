@@ -19,10 +19,11 @@ public class Logica {
 
 	private PFont dosisFuente, dosisFuenteReg, dosisCampos;
 	private int x, y;
-	private PImage imgs[], formulario, planetas[];
+	private PImage imgs[], formulario, planetas[],  emoji [],  emoji2 [];
 
 	private int contadorItem, opacidad, contadorInterno, imgOpacidad;
-
+	int frame = 0;	
+	int frame2 = 12;
 	private String[] texto;
 	private String nombre, carrera, semestre;
 	private ArrayList<Letra> letras;
@@ -60,6 +61,12 @@ public class Logica {
 		}
 
 		formulario = app.loadImage("../data/formulario.png");
+		
+		emoji  = new PImage[12];
+
+		for (int i = 0; i < emoji.length; i++) {
+			emoji[i] = app.loadImage("../data/Emojis/emoji_" + i + ".png");
+		}
 	}
 
 	private void inicializarVars() {
@@ -163,6 +170,10 @@ public class Logica {
 			validarTiempo();
 			fadeIn();
 
+			if (tareaTerminada) {
+				sigLetra();
+			}
+			
 			setFuenteBold(80, 255);
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text(letras.get(contadorItem - 1).getLetra(), x, y);
@@ -313,7 +324,8 @@ public class Logica {
 	public void mouse() {
 		// Cambiar pantalla
 		if (nivel == 0) {
-			if (app.mouseX >= 521 && app.mouseX <= 683 && app.mouseY >= 389 && app.mouseY < 440) {
+	if (app.mouseX >= 521 && app.mouseX <= 683 && app.mouseY >= 389 && app.mouseY < 440) {
+		imgOpacidad = 0;
 				nivel = 11;
 				// Campo de Texto
 				int blanco = app.color(255);
@@ -332,10 +344,9 @@ public class Logica {
 						.setColorLabel(blanco);
 				
 			}
-			imgOpacidad = 0;
 		} else if (nivel == 11) {
-			imgOpacidad = 0;
 			if (app.mouseX > 501 && app.mouseX < 707 && app.mouseY > 554 && app.mouseY < 604) {
+				imgOpacidad = 0;
 				nivel = 1;
 				
 				nombre = cp5.get(Textfield.class, "").getText();
@@ -385,7 +396,7 @@ public class Logica {
 		if (nivel == 3) {
 
 			if (app.key == app.ENTER) {
-				sigLetra();
+				//sigLetra();
 			} else {
 				validarLetra();
 			}
@@ -451,19 +462,29 @@ public class Logica {
 
 	private void sigLetra() {
 		System.out.println(tiempo);
-		reiniciarTiempo();
 		opacidad = 0;
 
-		if (contadorItem != 25) {
-			contadorItem++;
+	
+	app.image(emoji[frame], x, y);
 
-		} else {
-			nivel++;
-			//
-			imgOpacidad = 0;
-			//
+		if (app.frameCount %4 == 0) {
+			
+			frame++;
+			if (frame == 11) {
+				reiniciarTiempo();
+				if (contadorItem != 25) {
+					contadorItem++;
+				} else {
+					nivel++;
+					//
+					imgOpacidad = 0;
+					//
+				}
+				
+				frame = 0;
+				tareaTerminada = false;
+			}
 		}
-
 	}
 
 	public void validarLetra() {
@@ -475,6 +496,7 @@ public class Logica {
 
 		if (letrasTemp[0] == letraOprimida) {
 			System.out.println(app.key + " es correto!");
+			tareaTerminada = true;
 		} else {
 			System.out.println(app.key + " es incorreto!");
 		}
