@@ -16,7 +16,7 @@ public class Logica {
 	private int x, y;
 	private PImage imgs[];
 
-	private int contadorItem, opacidad, contadorInterno;
+	private int contadorItem, opacidad, contadorInterno, imgOpacidad;
 
 	private String[] texto;
 	private ArrayList<Letra> letras;
@@ -39,7 +39,7 @@ public class Logica {
 	}
 
 	private void cargarImgs() {
-		imgs = new PImage[5];
+		imgs = new PImage[8];
 
 		for (int i = 0; i < imgs.length; i++) {
 			imgs[i] = app.loadImage("../data/n" + i + ".png");
@@ -57,6 +57,7 @@ public class Logica {
 		oraciones = new ArrayList<Oracion>();
 		parrafos = new ArrayList<Parrafo>();
 		opacidad = 255;
+		imgOpacidad = 0;
 	}
 
 	private void cargarTexto() {
@@ -109,27 +110,21 @@ public class Logica {
 		switch (nivel) {
 		// Inicio
 		case 0:
-			setFuenteBold(48, 255);
-			app.textAlign(app.CENTER, app.CENTER);
-			app.text("LITTLE TYPE WORLDS", x, y - 100);
-
-			app.fill(255);
-			app.rect(x, y + 200, 150, 50);
+			//
+			fadeInImg();
+			app.image(imgs[5], x, y);
+			String first_name;
+			System.out.print("Enter your first name: ");
+			first_name = user_input.next( );
+			//
 			break;
 
 		// Instrucciones
 		case 1:
-			setFuenteBold(48, 255);
-			app.textAlign(app.CENTER, app.CENTER);
-			app.text("INSTRUCCIONES", x, y - 200);
-
-			setFuenteRegular(32, 255);
-			app.text("Escribe la letra/palabra/oraci�n que aparece en la pantalla!", x, y - 50);
-			app.text("Sin tildes o signos de puntuaci�n", x, y);
-			app.text("Cuando la hayas terminado, oprime Enter", x, y + 50);
-
-			app.fill(255);
-			app.rect(x, y + 200, 150, 50);
+			//
+			fadeInImg();
+			app.image(imgs[7], x, y);
+			//
 
 			break;
 
@@ -160,6 +155,9 @@ public class Logica {
 
 		// feedback nivel 1
 		case 4:
+			//
+			fadeInImg();
+			//
 			app.image(imgs[1], x, y);
 
 			break;
@@ -181,6 +179,9 @@ public class Logica {
 
 		// feedback nivel 2
 		case 6:
+			//
+			fadeInImg();
+			//
 			app.image(imgs[2], x, y);
 			break;
 
@@ -201,6 +202,9 @@ public class Logica {
 
 		// feedback nivel 3
 		case 8:
+			//
+			fadeInImg();
+			//
 			app.image(imgs[3], x, y);
 
 			break;
@@ -222,6 +226,9 @@ public class Logica {
 
 		// feedback final
 		case 10:
+			//
+			fadeInImg();
+			//
 			app.image(imgs[4], x, y);
 
 			break;
@@ -229,7 +236,15 @@ public class Logica {
 		}
 
 	}
-
+	//
+	private void fadeInImg() {
+		
+		app.tint(255, imgOpacidad);
+		if (app.frameCount%5==0 && imgOpacidad<=250) {
+			imgOpacidad+=50;
+		}
+	}
+	//
 	private void fadeIn() {
 		if (app.frameCount % 8 == 0 && opacidad <= 250) {
 			opacidad += 50;
@@ -328,6 +343,9 @@ public class Logica {
 			contadorItem++;
 		} else {
 			nivel++;
+			//
+			imgOpacidad = 0;
+			//
 		}
 	}
 
@@ -339,6 +357,9 @@ public class Logica {
 			contadorItem++;
 		} else {
 			nivel++;
+			//
+			imgOpacidad = 0;
+			//
 		}
 	}
 
@@ -350,6 +371,9 @@ public class Logica {
 			contadorItem++;
 		} else {
 			nivel++;
+			//
+			imgOpacidad = 0;
+			//
 		}
 	}
 
@@ -363,6 +387,9 @@ public class Logica {
 
 		} else {
 			nivel++;
+			//
+			imgOpacidad = 0;
+			//
 		}
 
 	}
