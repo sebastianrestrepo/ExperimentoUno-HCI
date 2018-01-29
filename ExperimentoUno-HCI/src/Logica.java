@@ -171,6 +171,7 @@ public class Logica {
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text("Nivel 2", x, y - 250);
+			fadeIn();
 
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
@@ -190,6 +191,7 @@ public class Logica {
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text("Nivel 3", x, y - 250);
+			fadeIn();
 
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
@@ -210,6 +212,7 @@ public class Logica {
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text("Nivel 4", x, y - 250);
+			fadeIn();
 
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
@@ -306,7 +309,8 @@ public class Logica {
 	private void sigParrafo() {
 		System.out.println(tiempo);
 		reiniciarTiempo();
-		if (contadorItem != 4) {
+		opacidad = 0;
+	if (contadorItem != 3) {
 			contadorItem++;
 		} else {
 			nivel++;
@@ -316,7 +320,8 @@ public class Logica {
 	private void sigOracion() {
 		System.out.println(tiempo);
 		reiniciarTiempo();
-		if (contadorItem != 4) {
+		opacidad = 0;
+	if (contadorItem != 3) {
 			contadorItem++;
 		} else {
 			nivel++;
@@ -326,7 +331,8 @@ public class Logica {
 	private void sigPalabra() {
 		System.out.println(tiempo);
 		reiniciarTiempo();
-		if (contadorItem != 20) {
+		opacidad = 0;
+	if (contadorItem != 20) {
 			contadorItem++;
 		} else {
 			nivel++;
