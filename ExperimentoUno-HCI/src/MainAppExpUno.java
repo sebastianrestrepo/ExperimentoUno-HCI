@@ -25,6 +25,7 @@ public class MainAppExpUno extends PApplet {
 	
 	public void mouseClicked() {
 		l.mouse();
+		System.out.println("mouse X: " + mouseX + " mouseY: " + mouseY);
 	}
 	
 	public void keyReleased() {

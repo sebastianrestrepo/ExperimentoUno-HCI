@@ -1,5 +1,10 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import controlP5.ControlP5;
+import controlP5.Textfield;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -12,17 +17,20 @@ public class Logica {
 	private int millis, segundos, nivel;
 	private boolean tareaTerminada;
 
-	private PFont dosisFuente, dosisFuenteReg;
+	private PFont dosisFuente, dosisFuenteReg, dosisCampos;
 	private int x, y;
-	private PImage imgs[];
+	private PImage imgs[], formulario;
 
 	private int contadorItem, opacidad, contadorInterno, imgOpacidad;
 
 	private String[] texto;
+	private String nombre, carrera, semestre;
 	private ArrayList<Letra> letras;
 	private ArrayList<Palabra> palabras;
 	private ArrayList<Oracion> oraciones;
 	private ArrayList<Parrafo> parrafos;
+
+	private ControlP5 cp5;
 
 	public Logica(PApplet app) {
 		this.app = app;
@@ -44,10 +52,13 @@ public class Logica {
 		for (int i = 0; i < imgs.length; i++) {
 			imgs[i] = app.loadImage("../data/n" + i + ".png");
 		}
+
+		formulario = app.loadImage("../data/formulario.png");
 	}
 
 	private void inicializarVars() {
 		contadorInterno = 0;
+		cp5 = new ControlP5(app);
 		nivel = 0;
 		y = app.height / 2;
 		x = app.width / 2;
@@ -103,6 +114,7 @@ public class Logica {
 	private void cargarfuente() {
 		dosisFuente = app.loadFont("Dosis-Bold-48.vlw");
 		dosisFuenteReg = app.loadFont("Dosis-Regular-48.vlw");
+		dosisCampos = app.createFont("Dosis-SemiBold-27.vlw", 18);
 	}
 
 	public void pantallas() {
@@ -113,7 +125,7 @@ public class Logica {
 			//
 			fadeInImg();
 			app.image(imgs[5], x, y);
-			
+
 			break;
 
 		// Instrucciones
@@ -229,18 +241,34 @@ public class Logica {
 			app.image(imgs[4], x, y);
 
 			break;
+		// formulario inicial
+		case 11:
+
+			app.image(formulario, x, y);
+
+			break;
 
 		}
+		
+		if(nivel!=11&&nivel!=0) {
+			cp5.get("").hide();
+			cp5.get(" ").hide();
+			cp5.get("  ").hide();
+		}
 
+		generarBaseDeDatos();
+		
 	}
+
 	//
 	private void fadeInImg() {
-		
+
 		app.tint(255, imgOpacidad);
-		if (app.frameCount%5==0 && imgOpacidad<=250) {
-			imgOpacidad+=50;
+		if (app.frameCount % 5 == 0 && imgOpacidad <= 250) {
+			imgOpacidad += 50;
 		}
 	}
+
 	//
 	private void fadeIn() {
 		if (app.frameCount % 8 == 0 && opacidad <= 250) {
@@ -275,43 +303,70 @@ public class Logica {
 	public void mouse() {
 		// Cambiar pantalla
 		if (nivel == 0) {
-			nivel = 1;
+			if (app.mouseX >= 521 && app.mouseX <= 683 && app.mouseY >= 389 && app.mouseY < 440) {
+				nivel = 11;
+				// Campo de Texto
+				int blanco = app.color(255);
+				int negro = app.color(60, 60, 59);
+
+				cp5.addTextfield("").setPosition(335, 226).setSize(400, 24).setFont(dosisCampos).setColor(negro)
+						.setColorForeground(blanco).setColorBackground(blanco).setColorActive(blanco)
+						.setColorLabel(blanco);
+
+				cp5.addTextfield(" ").setPosition(335, 330).setSize(400, 24).setFont(dosisCampos).setColor(negro)
+						.setColorForeground(blanco).setColorBackground(blanco).setColorActive(blanco)
+						.setColorLabel(blanco);
+
+				cp5.addTextfield("  ").setPosition(335, 440).setSize(426, 24).setFont(dosisCampos).setColor(negro)
+						.setColorForeground(blanco).setColorBackground(blanco).setColorActive(blanco)
+						.setColorLabel(blanco);
+				
+			}
 			imgOpacidad = 0;
+		} else if (nivel == 11) {
+			imgOpacidad = 0;
+			if (app.mouseX > 501 && app.mouseX < 707 && app.mouseY > 554 && app.mouseY < 604) {
+				nivel = 1;
+				
+				nombre = cp5.get(Textfield.class, "").getText();
+				carrera = cp5.get(Textfield.class, " ").getText();
+				semestre = cp5.get(Textfield.class, "  ").getText();
+			}
 		} else if (nivel == 1) {
-			nivel = 2;
-			imgOpacidad = 0;
+			if (app.mouseX > 508 && app.mouseX < 700 && app.mouseY > 585 && app.mouseY < 637) {
+				nivel = 2;
+				imgOpacidad = 0;
+			}
 		} else if (nivel == 2) {
 			nivel = 3;
 			imgOpacidad = 0;
-			opacidad= 0;
+			opacidad = 0;
 			contadorItem = 1;
 			reiniciarTiempo();
-		} else if (nivel == 3) {
-			nivel = 4;
 		} else if (nivel == 4) {
-			nivel = 5;
-			opacidad= 0;
-			imgOpacidad = 0;
-			contadorItem = 1;
-			reiniciarTiempo();
-		} else if (nivel == 5) {
-			nivel = 6;
+			if(app.mouseX>499&&app.mouseX<705&app.mouseY>514&&app.mouseY<566) {
+				nivel = 5;
+				opacidad = 0;
+				imgOpacidad = 0;
+				contadorItem = 1;
+				reiniciarTiempo();
+			}
 		} else if (nivel == 6) {
+			if(app.mouseX>511&&app.mouseX<720&app.mouseY>514&&app.mouseY<568) {
 			nivel = 7;
 			imgOpacidad = 0;
-			opacidad= 0;
-		contadorItem = 1;
+			opacidad = 0;
+			contadorItem = 1;
 			reiniciarTiempo();
-		} else if (nivel == 7) {
-			nivel = 8;
+			}
 		} else if (nivel == 8) {
+			if(app.mouseX>499&&app.mouseX<705&app.mouseY>515&&app.mouseY<567) {
 			nivel = 9;
-			opacidad= 0;
+			opacidad = 0;
 			contadorItem = 1;
 			imgOpacidad = 0;
 			reiniciarTiempo();
-		} else if (nivel == 9) {
-			nivel = 10;
+			}
 		}
 	}
 
@@ -414,27 +469,39 @@ public class Logica {
 			System.out.println(app.key + " es incorreto!");
 		}
 	}
-	
+
 	public void validarPalabra() {
 		char letraOprimida = ' ';
 		letraOprimida = app.key;
 		char[] palabrasTemp = palabras.get(contadorItem - 1).getPalabra().toCharArray();
-		
 
-		
-		if(contadorInterno >= palabrasTemp.length) {
+		if (contadorInterno > palabrasTemp.length) {
 			contadorInterno = 0;
 			System.out.println("Se reinició");
 		}
-		
-		if(palabrasTemp[contadorInterno] == letraOprimida) {
+
+		if (palabrasTemp[contadorInterno] == letraOprimida) {
 			System.out.println(letraOprimida + " es igual a " + palabrasTemp[contadorInterno]);
 			contadorInterno++;
 		} else {
 			System.out.println(letraOprimida + " es diferente a " + palabrasTemp[contadorInterno]);
 			contadorInterno++;
 		}
-		
+
 	}
 
+	public void generarBaseDeDatos() {
+		BufferedWriter salida;
+		String datosUsuario = "Usuario: " + nombre + " Semestre: " + semestre + " Carrera: " + carrera;
+		//String txtNuevo = app.join(datosUsuario, " "); //Se crea el String que recibe el texto con las modificaciones y las une
+		try {
+			salida = new BufferedWriter(new FileWriter("data/resultados.txt"));
+			salida.write(datosUsuario); //Se escribe el String que contiene las modificaciones en el txt nuevo
+			salida.flush(); 
+			salida.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
