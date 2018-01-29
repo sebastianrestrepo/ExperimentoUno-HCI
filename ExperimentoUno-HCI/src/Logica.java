@@ -18,7 +18,7 @@ public class Logica {
 	
 	public Logica(PApplet app) {
 		this.app = app;
-		t = new Timer();
+		t = new Timer(app);
 		t.start();
 		tareaTerminada = false;
 		
@@ -109,6 +109,7 @@ public class Logica {
 		//---------------NIVEL 2 ---------------
 			
 		case 5:
+			apareceletra();
 			setFuenteBold(48,255);
 			  app.textAlign(app.CENTER, app.CENTER);
 			  app.text("Nivel 2", x, y-250);
@@ -124,6 +125,7 @@ public class Logica {
 		//---------------NIVEL 3 ---------------
 			
 		case 7:
+			apareceletra();
 			setFuenteBold(48,255);
 			  app.textAlign(app.CENTER, app.CENTER);
 			  app.text("Nivel 3", x, y-250);
@@ -140,6 +142,7 @@ public class Logica {
 		//---------------NIVEL 4 ---------------
 			
 		case 9:
+			apareceletra();
 			setFuenteBold(48,255);
 			  app.textAlign(app.CENTER, app.CENTER);
 			  app.text("Nivel 4", x, y-250);
@@ -164,8 +167,6 @@ public class Logica {
 
 	private void apareceletra() {
 		validarTiempo();
-
-		
 	}
 
 
@@ -175,24 +176,21 @@ public class Logica {
 	}
 
 	public void validarTiempo() {
-		if (millis >= 1000) {
-			segundos++;
-			reiniciarTiempo();
-		}
-		//millis = t.getMillis();
-		t.validarTiempo();
+		millis = t.millis();
+		segundos = t.second();
 		tiempo = segundos + ":" + millis;
 		app.fill(255);
 		app.textAlign(app.LEFT, app.LEFT);
 		app.text(tiempo, app.width / 2, app.height / 2);
-		//System.out.println(tiempo);
+		System.out.println(tiempo);
 	}
 
 	public void reiniciarTiempo() {
-		//t.setMillis(0);
+		t.empezar();
 	}
 
 	public void mouse() {
+		reiniciarTiempo();
 		// Cambiar pantalla
 		if (nivel == 0) {
 			nivel = 1;

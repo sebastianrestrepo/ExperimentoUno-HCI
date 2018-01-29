@@ -1,27 +1,55 @@
 import java.util.concurrent.TimeUnit;
+import processing.core.PApplet;
 
 public class Timer extends Thread {
 
-	private long startTime;
-	private long difference;
+	private PApplet app;
+	private int comenzar;
+	private int millis;
 	
-	public Timer() {
-		startTime = System.nanoTime();
-		try {
-			Thread.sleep(1000 * 10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	public Timer(PApplet app) {
+		this.app = app;
+		comenzar = 0;
+	}
+	
+	public void empezar() {
+		comenzar = app.millis();
+	}
+	
+	public int tiempoReproducido() {
+		int tiempo;
+		tiempo = app.millis() - comenzar;
+		return tiempo;
+	}
 
-		
+	//GETTERS Y SETTERS
+	public int getMillis() {
+		return millis;
+	}
+
+	public void setMillis(int millis) {
+		this.millis = millis;
 	}
 	
-	public void validarTiempo() {
-		difference = System.nanoTime() - startTime;
-		System.out.println("Total execution time: " + String.format("%d min, %d sec",
-				TimeUnit.NANOSECONDS.toHours(difference), TimeUnit.NANOSECONDS.toSeconds(difference)
-						- TimeUnit.MINUTES.toSeconds(TimeUnit.NANOSECONDS.toMinutes(difference))));
+	/*
+	 * Devuelve los milisegundos reproducidos
+	 */
+	int millis() {
+		return tiempoReproducido();
 	}
 	
+	/*
+	 * Devuelve los segundos reproducidos
+	 */
+	int second() {
+		return (tiempoReproducido() / 1000) % 60;
+	}
+
+	/*
+	 * Devuelve los minutos reproducidos
+	 */
+	int minute() {
+		return (tiempoReproducido() / (1000 * 60)) % 60;
+	}
 
 }
