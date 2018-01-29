@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -6,7 +8,6 @@ public class Logica {
 
 	private PApplet app;
 	private Timer t;
-	private String texto;
 	private String tiempo;
 	private int millis, segundos, nivel;
 	private boolean tareaTerminada;
@@ -15,6 +16,11 @@ public class Logica {
 	private int x,y;
 	private PImage imgs[];
 	
+	private String [] texto;
+	private ArrayList<Letra> letras;
+	private ArrayList<Palabra> palabras;
+	private ArrayList<Oracion> oraciones;
+	private ArrayList<Parrafo> parrafos;
 	
 	public Logica(PApplet app) {
 		this.app = app;
@@ -25,6 +31,8 @@ public class Logica {
 		inicializarVars();
 		cargarImgs();
 		cargarfuente();
+		cargarTexto();
+		guardarTexto();
 		app.imageMode(app.CENTER);
 	}
 	
@@ -40,15 +48,55 @@ public class Logica {
 		 nivel = 0;
 		 y=app.height/2;
 		 x=app.width/2;
+		 letras = new ArrayList<Letra>();
+		 palabras = new ArrayList<Palabra>();
+		 oraciones = new ArrayList<Oracion>();
+		 parrafos = new ArrayList<Parrafo>();
+	}
+	
+	private void cargarTexto() {
+		texto = app.loadStrings("texto.txt");
+		for (int i = 0; i < texto.length; i++) {
+			System.out.println(texto[i]);
+		}
+	}
+	
+	public void guardarTexto() {
+		for (int i = 0; i < 25; i++) {
+			letras.add(new Letra(texto[i]));
+		}
+		for (int i = 25; i < 45; i++) {
+			palabras.add(new Palabra(texto[i]));
+		}
+		for (int i = 45; i < 49; i++) {
+			oraciones.add(new Oracion(texto[i]));
+		}
+		for (int i = 49; i < 51; i++) {
+			parrafos.add(new Parrafo(texto[i]));
+		}
+		// IMPRIMIR
+		System.out.println("----ARRAYLIST DE LETRAS-----");
+		for (int i = 0; i < letras.size(); i++) {
+			System.out.println("posición: " + i + " contiene: " + letras.get(i).getLetra());
+		}
+		System.out.println("----ARRAYLIST DE PALABRAS-----");
+		for (int i = 0; i < palabras.size(); i++) {
+			System.out.println("posición: " + i + " contiene: " + palabras.get(i).getPalabra());
+		}
+		System.out.println("----ARRAYLIST DE ORACIONES-----");
+		for (int i = 0; i < oraciones.size(); i++) {
+			System.out.println("posición: " + i + " contiene: " + oraciones.get(i).getOracion());
+		}
+		System.out.println("----ARRAYLIST DE PARRAFOS-----");
+		for (int i = 0; i < parrafos.size(); i++) {
+			System.out.println("posición: " + i + " contiene: " + parrafos.get(i).getParrafo());
+		}
+
 	}
 
 	private void cargarfuente() {
 		dosisFuente = app.loadFont("Dosis-Bold-48.vlw");
 		dosisFuenteReg = app.loadFont("Dosis-Regular-48.vlw");
-	}
-
-	public void cargarTxt() {
-		
 	}
 
 	public void pantallas() {
