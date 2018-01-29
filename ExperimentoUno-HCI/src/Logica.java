@@ -310,7 +310,7 @@ public class Logica {
 		System.out.println(tiempo);
 		reiniciarTiempo();
 		opacidad = 0;
-	if (contadorItem != 3) {
+	if (contadorItem != 2) {
 			contadorItem++;
 		} else {
 			nivel++;
@@ -321,7 +321,7 @@ public class Logica {
 		System.out.println(tiempo);
 		reiniciarTiempo();
 		opacidad = 0;
-	if (contadorItem != 3) {
+	if (contadorItem != 4) {
 			contadorItem++;
 		} else {
 			nivel++;
