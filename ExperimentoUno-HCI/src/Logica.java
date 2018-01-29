@@ -323,7 +323,6 @@ public class Logica {
 
 	public void mouse() {
 		// Cambiar pantalla
-		
 		if (nivel == 0) {
 	if (app.mouseX >= 521 && app.mouseX <= 683 && app.mouseY >= 389 && app.mouseY < 440) {
 		imgOpacidad = 0;
@@ -399,7 +398,9 @@ public class Logica {
 			if (app.key == app.ENTER) {
 				//sigLetra();
 			} else {
+				System.out.println(tiempo);
 				validarLetra();
+				reiniciarTiempo();
 			}
 		} else if (nivel == 5) {
 			if (app.key == app.ENTER) {
@@ -448,8 +449,7 @@ public class Logica {
 	}
 
 	private void sigPalabra() {
-		System.out.println(tiempo);
-		reiniciarTiempo();
+		
 		opacidad = 0;
 		if (contadorItem != 20) {
 			contadorItem++;
@@ -462,7 +462,6 @@ public class Logica {
 	}
 
 	private void sigLetra() {
-		System.out.println(tiempo);
 		opacidad = 0;
 
 	
