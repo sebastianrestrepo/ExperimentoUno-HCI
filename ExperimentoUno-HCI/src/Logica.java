@@ -475,7 +475,7 @@ public class Logica {
 		letraOprimida = app.key;
 		char[] palabrasTemp = palabras.get(contadorItem - 1).getPalabra().toCharArray();
 
-		if (contadorInterno > palabrasTemp.length) {
+		if (contadorInterno >= palabrasTemp.length) {
 			contadorInterno = 0;
 			System.out.println("Se reinició");
 		}
