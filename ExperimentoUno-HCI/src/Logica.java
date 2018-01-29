@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import controlP5.ControlP5;
 import controlP5.Textfield;
+import ddf.minim.AudioSample;
+import ddf.minim.Minim;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -15,17 +17,21 @@ public class Logica {
 	private Timer t;
 	private String tiempo;
 	private int millis, segundos, nivel;
-	private boolean tareaTerminada;
-
+	private boolean tareaTerminada, tareaTerminadaMal;
+	private AudioSample audioBueno, audioMalo;
+	private Minim minim;
 	private PFont dosisFuente, dosisFuenteReg, dosisCampos;
 	private int x, y;
-	private PImage imgs[], formulario, planetas[],  emoji [],  emoji2 [];
+	private PImage imgs[], formulario, planetas[], emoji[], emoji2[], trans [];
 
 	private int contadorItem, opacidad, contadorInterno, imgOpacidad;
-	int frame = 0;	
+	int frame = 0;
 	int frame2 = 12;
+	int frame3 = 0;
 	private String[] texto;
 	private String nombre, carrera, semestre;
+	private ArrayList<Palabra> palabrasEscritas;
+	private String palabraEscrita;
 	private ArrayList<Letra> letras;
 	private ArrayList<Palabra> palabras;
 	private ArrayList<Oracion> oraciones;
@@ -38,7 +44,7 @@ public class Logica {
 		t = new Timer(app);
 		t.start();
 		tareaTerminada = false;
-
+		tareaTerminadaMal = false;
 		inicializarVars();
 		cargarImgs();
 		cargarfuente();
@@ -51,23 +57,34 @@ public class Logica {
 		imgs = new PImage[8];
 
 		planetas = new PImage[4];
-		
+
 		for (int i = 0; i < imgs.length; i++) {
 			imgs[i] = app.loadImage("../data/n" + i + ".png");
 		}
-		
+
 		for (int i = 0; i < planetas.length; i++) {
 			planetas[i] = app.loadImage("../data/planeta" + i + ".png");
 		}
 
 		formulario = app.loadImage("../data/formulario.png");
-		
-		emoji  = new PImage[12];
+
+		emoji = new PImage[12];
 
 		for (int i = 0; i < emoji.length; i++) {
 			emoji[i] = app.loadImage("../data/Emojis/emoji_" + i + ".png");
 		}
-	}
+
+		emoji2 = new PImage[13];
+
+		for (int i = 12; i < 25; i++) {
+			emoji2[i - 12] = app.loadImage("../data/Emojis/emoji_" + i + ".png");
+		}
+
+		trans = new PImage[41];
+
+		for (int i = 6; i < 47; i++) {
+			trans[i - 6] = app.loadImage("../data/NivelUno/NivelUno_" + i + ".png");
+		}	}
 
 	private void inicializarVars() {
 		contadorInterno = 0;
@@ -82,6 +99,11 @@ public class Logica {
 		parrafos = new ArrayList<Parrafo>();
 		opacidad = 255;
 		imgOpacidad = 0;
+		palabraEscrita = "";
+		palabrasEscritas = new ArrayList<Palabra>();
+		minim = new Minim(app);
+		audioBueno = minim.loadSample("../data/Bueno.mp3", 512);
+		audioMalo = minim.loadSample("../data/Malo.mp3", 512);
 	}
 
 	private void cargarTexto() {
@@ -152,17 +174,23 @@ public class Logica {
 
 		// Animacion a nivel 1
 		case 2:
-			setFuenteBold(48, 255);
-			app.textAlign(app.CENTER, app.CENTER);
-
-			app.text("Transicion", x, y - 250);
+			app.image(trans[frame3], x, y);
+			if (app.frameCount%5==0) {
+				frame3++;
+				if (frame3==41) {
+					frame3= 0;
+					nivel=3;
+				}
+				
+			}
+			
 			break;
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////
 		// --------------- NIVEL 1 -----------
 		case 3:
 
-			app.image(planetas[0], x, y+40);
+			app.image(planetas[0], x, y + 40);
 			setFuenteBold(48, 255);
 			app.textAlign(app.CORNER, app.CORNER);
 			app.text("Nivel 1", x, y - 250);
@@ -172,8 +200,12 @@ public class Logica {
 
 			if (tareaTerminada) {
 				sigLetra();
-			}
+			} 
 			
+			if (tareaTerminadaMal) {
+				sigLetraMal();
+			}
+
 			setFuenteBold(80, 255);
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text(letras.get(contadorItem - 1).getLetra(), x, y);
@@ -193,7 +225,7 @@ public class Logica {
 		// ---------------NIVEL 2 ---------------
 
 		case 5:
-			app.image(planetas[1], x, y+40);
+			app.image(planetas[1], x, y + 40);
 			validarTiempo();
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
@@ -203,6 +235,8 @@ public class Logica {
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text(palabras.get(contadorItem - 1).getPalabra(), x, y);
+			
+			
 			break;
 
 		// feedback nivel 2
@@ -217,7 +251,7 @@ public class Logica {
 		// ---------------NIVEL 3 ---------------
 
 		case 7:
-			app.image(planetas[2], x-10, y+45);
+			app.image(planetas[2], x - 10, y + 45);
 			validarTiempo();
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
@@ -242,7 +276,7 @@ public class Logica {
 		// ---------------NIVEL 4 ---------------
 
 		case 9:
-			app.image(planetas[3], x, y+35);
+			app.image(planetas[3], x, y + 35);
 			validarTiempo();
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
@@ -270,15 +304,15 @@ public class Logica {
 			break;
 
 		}
-		
-		if(nivel!=11&&nivel!=0) {
+
+		if (nivel != 11 && nivel != 0) {
 			cp5.get("").hide();
 			cp5.get(" ").hide();
 			cp5.get("  ").hide();
 		}
 
 		generarBaseDeDatos();
-		
+
 	}
 
 	//
@@ -324,8 +358,8 @@ public class Logica {
 	public void mouse() {
 		// Cambiar pantalla
 		if (nivel == 0) {
-	if (app.mouseX >= 521 && app.mouseX <= 683 && app.mouseY >= 389 && app.mouseY < 440) {
-		imgOpacidad = 0;
+			if (app.mouseX >= 521 && app.mouseX <= 683 && app.mouseY >= 389 && app.mouseY < 440) {
+				imgOpacidad = 0;
 				nivel = 11;
 				// Campo de Texto
 				int blanco = app.color(255);
@@ -342,13 +376,13 @@ public class Logica {
 				cp5.addTextfield("  ").setPosition(335, 440).setSize(426, 24).setFont(dosisCampos).setColor(negro)
 						.setColorForeground(blanco).setColorBackground(blanco).setColorActive(blanco)
 						.setColorLabel(blanco);
-				
+
 			}
 		} else if (nivel == 11) {
 			if (app.mouseX > 501 && app.mouseX < 707 && app.mouseY > 554 && app.mouseY < 604) {
 				imgOpacidad = 0;
 				nivel = 1;
-				
+
 				nombre = cp5.get(Textfield.class, "").getText();
 				carrera = cp5.get(Textfield.class, " ").getText();
 				semestre = cp5.get(Textfield.class, "  ").getText();
@@ -365,7 +399,7 @@ public class Logica {
 			contadorItem = 1;
 			reiniciarTiempo();
 		} else if (nivel == 4) {
-			if(app.mouseX>499&&app.mouseX<705&app.mouseY>514&&app.mouseY<566) {
+			if (app.mouseX > 499 && app.mouseX < 705 & app.mouseY > 514 && app.mouseY < 566) {
 				nivel = 5;
 				opacidad = 0;
 				imgOpacidad = 0;
@@ -373,20 +407,20 @@ public class Logica {
 				reiniciarTiempo();
 			}
 		} else if (nivel == 6) {
-			if(app.mouseX>511&&app.mouseX<720&app.mouseY>514&&app.mouseY<568) {
-			nivel = 7;
-			imgOpacidad = 0;
-			opacidad = 0;
-			contadorItem = 1;
-			reiniciarTiempo();
+			if (app.mouseX > 511 && app.mouseX < 720 & app.mouseY > 514 && app.mouseY < 568) {
+				nivel = 7;
+				imgOpacidad = 0;
+				opacidad = 0;
+				contadorItem = 1;
+				reiniciarTiempo();
 			}
 		} else if (nivel == 8) {
-			if(app.mouseX>499&&app.mouseX<705&app.mouseY>515&&app.mouseY<567) {
-			nivel = 9;
-			opacidad = 0;
-			contadorItem = 1;
-			imgOpacidad = 0;
-			reiniciarTiempo();
+			if (app.mouseX > 499 && app.mouseX < 705 & app.mouseY > 515 && app.mouseY < 567) {
+				nivel = 9;
+				opacidad = 0;
+				contadorItem = 1;
+				imgOpacidad = 0;
+				reiniciarTiempo();
 			}
 		}
 	}
@@ -396,7 +430,7 @@ public class Logica {
 		if (nivel == 3) {
 
 			if (app.key == app.ENTER) {
-				//sigLetra();
+				// sigLetra();
 			} else {
 				System.out.println(tiempo);
 				validarLetra();
@@ -449,7 +483,7 @@ public class Logica {
 	}
 
 	private void sigPalabra() {
-		
+
 		opacidad = 0;
 		if (contadorItem != 20) {
 			contadorItem++;
@@ -464,11 +498,10 @@ public class Logica {
 	private void sigLetra() {
 		opacidad = 0;
 
-	
-	app.image(emoji[frame], x, y);
+		app.image(emoji[frame], x, y);
 
-		if (app.frameCount %4 == 0) {
-			
+		if (app.frameCount % 4 == 0) {
+
 			frame++;
 			if (frame == 11) {
 				reiniciarTiempo();
@@ -480,9 +513,34 @@ public class Logica {
 					imgOpacidad = 0;
 					//
 				}
-				
+
 				frame = 0;
 				tareaTerminada = false;
+			}
+		}
+	}
+
+	public void sigLetraMal() {
+		opacidad = 0;
+
+		app.image(emoji2[frame2], x, y);
+
+		if (app.frameCount % 4 == 0) {
+
+			frame2++;
+			if (frame2 == 13) {
+				reiniciarTiempo();
+				if (contadorItem != 25) {
+					contadorItem++;
+				} else {
+					nivel++;
+					//
+					imgOpacidad = 0;
+					//
+				}
+
+				frame2 = 0;
+				tareaTerminadaMal = false;
 			}
 		}
 	}
@@ -497,8 +555,11 @@ public class Logica {
 		if (letrasTemp[0] == letraOprimida) {
 			System.out.println(app.key + " es correto!");
 			tareaTerminada = true;
-		} else {
+			audioBueno.trigger();
+		} else if (letrasTemp[0] != letraOprimida) {
 			System.out.println(app.key + " es incorreto!");
+			tareaTerminadaMal = true;
+			audioMalo.trigger();
 		}
 	}
 
@@ -506,6 +567,14 @@ public class Logica {
 		char letraOprimida = ' ';
 		letraOprimida = app.key;
 		char[] palabrasTemp = palabras.get(contadorItem - 1).getPalabra().toCharArray();
+
+		palabraEscrita = palabraEscrita + letraOprimida;
+
+		palabrasEscritas.add(new Palabra(palabraEscrita));
+
+		for (int j = 0; j < palabrasEscritas.size(); j++) {
+			System.out.println(palabrasEscritas.get(j).getPalabra());
+		}
 
 		if (contadorInterno >= palabrasTemp.length) {
 			contadorInterno = 0;
@@ -525,15 +594,16 @@ public class Logica {
 	public void generarBaseDeDatos() {
 		BufferedWriter salida;
 		String datosUsuario = "Usuario: " + nombre + " Semestre: " + semestre + " Carrera: " + carrera;
-		//String txtNuevo = app.join(datosUsuario, " "); //Se crea el String que recibe el texto con las modificaciones y las une
+		// String txtNuevo = app.join(datosUsuario, " "); //Se crea el String que recibe
+		// el texto con las modificaciones y las une
 		try {
 			salida = new BufferedWriter(new FileWriter("data/resultados.txt"));
-			salida.write(datosUsuario); //Se escribe el String que contiene las modificaciones en el txt nuevo
-			salida.flush(); 
+			salida.write(datosUsuario); // Se escribe el String que contiene las modificaciones en el txt nuevo
+			salida.flush();
 			salida.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 }
