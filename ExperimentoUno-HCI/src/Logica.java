@@ -206,7 +206,7 @@ public class Logica {
 		// ---------------NIVEL 3 ---------------
 
 		case 7:
-			app.image(planetas[2], x, y+45);
+			app.image(planetas[2], x-10, y+45);
 			validarTiempo();
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
