@@ -19,7 +19,7 @@ public class Logica {
 
 	private PFont dosisFuente, dosisFuenteReg, dosisCampos;
 	private int x, y;
-	private PImage imgs[], formulario;
+	private PImage imgs[], formulario, planetas[];
 
 	private int contadorItem, opacidad, contadorInterno, imgOpacidad;
 
@@ -49,8 +49,14 @@ public class Logica {
 	private void cargarImgs() {
 		imgs = new PImage[8];
 
+		planetas = new PImage[4];
+		
 		for (int i = 0; i < imgs.length; i++) {
 			imgs[i] = app.loadImage("../data/n" + i + ".png");
+		}
+		
+		for (int i = 0; i < planetas.length; i++) {
+			planetas[i] = app.loadImage("../data/planeta" + i + ".png");
 		}
 
 		formulario = app.loadImage("../data/formulario.png");
@@ -149,6 +155,7 @@ public class Logica {
 		// --------------- NIVEL 1 -----------
 		case 3:
 
+			app.image(planetas[0], x, y+40);
 			setFuenteBold(48, 255);
 			app.textAlign(app.CORNER, app.CORNER);
 			app.text("Nivel 1", x, y - 250);
@@ -175,6 +182,7 @@ public class Logica {
 		// ---------------NIVEL 2 ---------------
 
 		case 5:
+			app.image(planetas[1], x, y+40);
 			validarTiempo();
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
@@ -198,6 +206,7 @@ public class Logica {
 		// ---------------NIVEL 3 ---------------
 
 		case 7:
+			app.image(planetas[2], x, y+45);
 			validarTiempo();
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
@@ -222,6 +231,7 @@ public class Logica {
 		// ---------------NIVEL 4 ---------------
 
 		case 9:
+			app.image(planetas[3], x, y+35);
 			validarTiempo();
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
