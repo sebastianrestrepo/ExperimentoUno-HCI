@@ -113,10 +113,7 @@ public class Logica {
 			//
 			fadeInImg();
 			app.image(imgs[5], x, y);
-			String first_name;
-			System.out.print("Enter your first name: ");
-			first_name = user_input.next( );
-			//
+			
 			break;
 
 		// Instrucciones
@@ -279,29 +276,39 @@ public class Logica {
 		// Cambiar pantalla
 		if (nivel == 0) {
 			nivel = 1;
+			imgOpacidad = 0;
 		} else if (nivel == 1) {
 			nivel = 2;
+			imgOpacidad = 0;
 		} else if (nivel == 2) {
 			nivel = 3;
+			imgOpacidad = 0;
+			opacidad= 0;
 			contadorItem = 1;
 			reiniciarTiempo();
 		} else if (nivel == 3) {
 			nivel = 4;
 		} else if (nivel == 4) {
 			nivel = 5;
+			opacidad= 0;
+			imgOpacidad = 0;
 			contadorItem = 1;
 			reiniciarTiempo();
 		} else if (nivel == 5) {
 			nivel = 6;
 		} else if (nivel == 6) {
 			nivel = 7;
-			contadorItem = 1;
+			imgOpacidad = 0;
+			opacidad= 0;
+		contadorItem = 1;
 			reiniciarTiempo();
 		} else if (nivel == 7) {
 			nivel = 8;
 		} else if (nivel == 8) {
 			nivel = 9;
+			opacidad= 0;
 			contadorItem = 1;
+			imgOpacidad = 0;
 			reiniciarTiempo();
 		} else if (nivel == 9) {
 			nivel = 10;
