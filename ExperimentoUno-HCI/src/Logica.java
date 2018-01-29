@@ -492,7 +492,7 @@ public class Logica {
 		char letraOprimida = ' ';
 
 		letraOprimida = app.key;
-		System.out.println("OPRIMIÓ: " + app.key);
+		System.out.println("OPRIMIO: " + app.key);
 
 		if (letrasTemp[0] == letraOprimida) {
 			System.out.println(app.key + " es correto!");
