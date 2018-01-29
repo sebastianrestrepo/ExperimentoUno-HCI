@@ -16,7 +16,7 @@ public class Logica {
 	private int x, y;
 	private PImage imgs[];
 
-	private int contadorItem, opacidad;
+	private int contadorItem, opacidad, contadorInterno;
 
 	private String[] texto;
 	private ArrayList<Letra> letras;
@@ -47,6 +47,7 @@ public class Logica {
 	}
 
 	private void inicializarVars() {
+		contadorInterno = 0;
 		nivel = 0;
 		y = app.height / 2;
 		x = app.width / 2;
@@ -230,20 +231,20 @@ public class Logica {
 	}
 
 	private void fadeIn() {
-		if (app.frameCount%8==0 && opacidad<=250) {
-			opacidad+=50;
+		if (app.frameCount % 8 == 0 && opacidad <= 250) {
+			opacidad += 50;
 		}
 	}
 
 	private void setFuenteBold(int i, int j) {
 		app.textFont(dosisFuente, i);
-		app.fill(j,j,j,opacidad);
+		app.fill(j, j, j, opacidad);
 
 	}
 
 	private void setFuenteRegular(int i, int j) {
 		app.textFont(dosisFuenteReg, i);
-		app.fill(j,j,j,opacidad);
+		app.fill(j, j, j, opacidad);
 	}
 
 	public void validarTiempo() {
@@ -293,24 +294,37 @@ public class Logica {
 	}
 
 	public void teclas() {
-		if (app.keyCode == 10) {
-			if (nivel == 3) {
+
+		if (nivel == 3) {
+
+			if (app.key == app.ENTER) {
 				sigLetra();
-			} else if (nivel == 5) {
+			} else {
+				validarLetra();
+			}
+		} else if (nivel == 5) {
+			if (app.key == app.ENTER) {
 				sigPalabra();
-			} else if (nivel == 7) {
+			} else {
+				validarPalabra();
+			}
+		} else if (nivel == 7) {
+			if (app.key == app.ENTER) {
 				sigOracion();
-			} else if (nivel == 9) {
+			}
+		} else if (nivel == 9) {
+			if (app.key == app.ENTER) {
 				sigParrafo();
 			}
 		}
+
 	}
 
 	private void sigParrafo() {
 		System.out.println(tiempo);
 		reiniciarTiempo();
 		opacidad = 0;
-	if (contadorItem != 2) {
+		if (contadorItem != 2) {
 			contadorItem++;
 		} else {
 			nivel++;
@@ -321,7 +335,7 @@ public class Logica {
 		System.out.println(tiempo);
 		reiniciarTiempo();
 		opacidad = 0;
-	if (contadorItem != 4) {
+		if (contadorItem != 4) {
 			contadorItem++;
 		} else {
 			nivel++;
@@ -332,7 +346,7 @@ public class Logica {
 		System.out.println(tiempo);
 		reiniciarTiempo();
 		opacidad = 0;
-	if (contadorItem != 20) {
+		if (contadorItem != 20) {
 			contadorItem++;
 		} else {
 			nivel++;
@@ -343,15 +357,50 @@ public class Logica {
 		System.out.println(tiempo);
 		reiniciarTiempo();
 		opacidad = 0;
-		
+
 		if (contadorItem != 25) {
 			contadorItem++;
-			
 
 		} else {
 			nivel++;
 		}
 
+	}
+
+	public void validarLetra() {
+		char[] letrasTemp = letras.get(contadorItem - 1).getLetra().toCharArray();
+		char letraOprimida = ' ';
+
+		letraOprimida = app.key;
+		System.out.println("OPRIMIÓ: " + app.key);
+
+		if (letrasTemp[0] == letraOprimida) {
+			System.out.println(app.key + " es correto!");
+		} else {
+			System.out.println(app.key + " es incorreto!");
+		}
+	}
+	
+	public void validarPalabra() {
+		char letraOprimida = ' ';
+		letraOprimida = app.key;
+		char[] palabrasTemp = palabras.get(contadorItem - 1).getPalabra().toCharArray();
+		
+
+		
+		if(contadorInterno >= palabrasTemp.length) {
+			contadorInterno = 0;
+			System.out.println("Se reinició");
+		}
+		
+		if(palabrasTemp[contadorInterno] == letraOprimida) {
+			System.out.println(letraOprimida + " es igual a " + palabrasTemp[contadorInterno]);
+			contadorInterno++;
+		} else {
+			System.out.println(letraOprimida + " es diferente a " + palabrasTemp[contadorInterno]);
+			contadorInterno++;
+		}
+		
 	}
 
 }
