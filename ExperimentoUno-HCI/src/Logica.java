@@ -17,21 +17,25 @@ public class Logica {
 	private Timer t;
 	private String tiempo;
 	private int millis, segundos, nivel;
-	private boolean tareaTerminada, tareaTerminadaMal;
+	private boolean tareaTerminada, tareaTerminadaMal, tareaTerminadaPal, tareaTerminadaMalPal, tareaTerminadaOr,
+			tareaTerminadaMalOr, tareaTerminadaParr, tareaTerminadaMalParr;
 	private AudioSample audioBueno, audioMalo;
 	private Minim minim;
 	private PFont dosisFuente, dosisFuenteReg, dosisCampos;
 	private int x, y;
-	private PImage imgs[], formulario, planetas[], emoji[], emoji2[], trans [];
-
-	private int contadorItem, opacidad, contadorInterno, imgOpacidad;
+	private PImage imgs[], formulario, planetas[], emoji[], emoji2[], trans[];
+	private int contadorItem, opacidad, imgOpacidad;
+	private int contadorPal, contadorInternoPal, contadorInternoOr, contadorInternoParr, contadorGeneral;
 	int frame = 0;
 	int frame2 = 12;
 	int frame3 = 0;
 	private String[] texto;
-	private String nombre, carrera, semestre;
-	private ArrayList<Palabra> palabrasEscritas;
+	private String datosUsuario, nombre, carrera, semestre, edad, genero;
+	private boolean[] acerto;
+	private String[] resultadosUsuario;
 	private String palabraEscrita;
+	private String parrafoEscrito;
+	private String oracionEscrita;
 	private ArrayList<Letra> letras;
 	private ArrayList<Palabra> palabras;
 	private ArrayList<Oracion> oraciones;
@@ -43,8 +47,6 @@ public class Logica {
 		this.app = app;
 		t = new Timer(app);
 		t.start();
-		tareaTerminada = false;
-		tareaTerminadaMal = false;
 		inicializarVars();
 		cargarImgs();
 		cargarfuente();
@@ -84,10 +86,20 @@ public class Logica {
 
 		for (int i = 6; i < 47; i++) {
 			trans[i - 6] = app.loadImage("../data/NivelUno/NivelUno_" + i + ".png");
-		}	}
+		}
+	}
 
 	private void inicializarVars() {
-		contadorInterno = 0;
+		tareaTerminada = false;
+		tareaTerminadaMal = false;
+		tareaTerminadaPal = false;
+		tareaTerminadaMalPal = false;
+		tareaTerminadaOr = false;
+		tareaTerminadaMalOr = false;
+		tareaTerminadaParr = false;
+		tareaTerminadaMalParr = false;
+		contadorInternoPal = 0;
+		contadorGeneral = 1;
 		cp5 = new ControlP5(app);
 		nivel = 0;
 		y = app.height / 2;
@@ -100,7 +112,8 @@ public class Logica {
 		opacidad = 255;
 		imgOpacidad = 0;
 		palabraEscrita = "";
-		palabrasEscritas = new ArrayList<Palabra>();
+		resultadosUsuario = new String[52];
+		acerto = new boolean[52];
 		minim = new Minim(app);
 		audioBueno = minim.loadSample("../data/Bueno.mp3", 512);
 		audioMalo = minim.loadSample("../data/Malo.mp3", 512);
@@ -175,15 +188,15 @@ public class Logica {
 		// Animacion a nivel 1
 		case 2:
 			app.image(trans[frame3], x, y);
-			if (app.frameCount%5==0) {
+			if (app.frameCount % 5 == 0) {
 				frame3++;
-				if (frame3==41) {
-					frame3= 0;
-					nivel=3;
+				if (frame3 == 41) {
+					frame3 = 0;
+					nivel = 3;
 				}
-				
+
 			}
-			
+
 			break;
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -200,8 +213,8 @@ public class Logica {
 
 			if (tareaTerminada) {
 				sigLetra();
-			} 
-			
+			}
+
 			if (tareaTerminadaMal) {
 				sigLetraMal();
 			}
@@ -235,8 +248,14 @@ public class Logica {
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text(palabras.get(contadorItem - 1).getPalabra(), x, y);
-			
-			
+
+			if (tareaTerminadaPal) {
+				sigPalabra();
+			}
+			if (tareaTerminadaMalPal) {
+				sigPalabraMal();
+			}
+
 			break;
 
 		// feedback nivel 2
@@ -261,6 +280,14 @@ public class Logica {
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text(oraciones.get(contadorItem - 1).getOracion(), x, y, 900, 300);
+
+			if (tareaTerminadaOr) {
+				sigOracion();
+			}
+			if (tareaTerminadaMalOr) {
+				sigOracionMal();
+			}
+
 			break;
 
 		// feedback nivel 3
@@ -286,6 +313,14 @@ public class Logica {
 			setFuenteBold(48, 255);
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text(parrafos.get(contadorItem - 1).getParrafo(), x, y, 900, 300);
+			
+			if (tareaTerminadaParr) {
+				sigParrafo();
+			}
+			if (tareaTerminadaMalParr) {
+				sigParrafoMal();
+			}
+			
 			break;
 
 		// feedback final
@@ -309,6 +344,8 @@ public class Logica {
 			cp5.get("").hide();
 			cp5.get(" ").hide();
 			cp5.get("  ").hide();
+			cp5.get("   ").hide();
+			cp5.get("    ").hide();
 		}
 
 		generarBaseDeDatos();
@@ -334,7 +371,6 @@ public class Logica {
 	private void setFuenteBold(int i, int j) {
 		app.textFont(dosisFuente, i);
 		app.fill(j, j, j, opacidad);
-
 	}
 
 	private void setFuenteRegular(int i, int j) {
@@ -365,17 +401,23 @@ public class Logica {
 				int blanco = app.color(255);
 				int negro = app.color(60, 60, 59);
 
-				cp5.addTextfield("").setPosition(335, 226).setSize(400, 24).setFont(dosisCampos).setColor(negro)
+				cp5.addTextfield("").setPosition(335, 208).setSize(400, 24).setFont(dosisCampos).setColor(negro)
 						.setColorForeground(blanco).setColorBackground(blanco).setColorActive(blanco)
 						.setColorLabel(blanco);
 
-				cp5.addTextfield(" ").setPosition(335, 330).setSize(400, 24).setFont(dosisCampos).setColor(negro)
+				cp5.addTextfield(" ").setPosition(335, 297).setSize(400, 24).setFont(dosisCampos).setColor(negro)
 						.setColorForeground(blanco).setColorBackground(blanco).setColorActive(blanco)
 						.setColorLabel(blanco);
 
-				cp5.addTextfield("  ").setPosition(335, 440).setSize(426, 24).setFont(dosisCampos).setColor(negro)
+				cp5.addTextfield("  ").setPosition(335, 387).setSize(426, 24).setFont(dosisCampos).setColor(negro)
 						.setColorForeground(blanco).setColorBackground(blanco).setColorActive(blanco)
 						.setColorLabel(blanco);
+				cp5.addTextfield("   ").setPosition(334, 476).setSize(140, 24).setFont(dosisCampos).setColor(negro)
+				.setColorForeground(blanco).setColorBackground(blanco).setColorActive(blanco)
+				.setColorLabel(blanco);
+				cp5.addTextfield("    ").setPosition(527, 476).setSize(345, 24).setFont(dosisCampos).setColor(negro)
+				.setColorForeground(blanco).setColorBackground(blanco).setColorActive(blanco)
+				.setColorLabel(blanco);
 
 			}
 		} else if (nivel == 11) {
@@ -386,6 +428,11 @@ public class Logica {
 				nombre = cp5.get(Textfield.class, "").getText();
 				carrera = cp5.get(Textfield.class, " ").getText();
 				semestre = cp5.get(Textfield.class, "  ").getText();
+				edad = cp5.get(Textfield.class, "   ").getText();
+				genero = cp5.get(Textfield.class, "    ").getText();
+
+				datosUsuario = "Usuario: " + nombre + " Semestre: " + semestre + " Carrera: " + carrera + " Edad: " + edad + " Genero: " + genero;
+				resultadosUsuario[0] = datosUsuario;
 			}
 		} else if (nivel == 1) {
 			if (app.mouseX > 508 && app.mouseX < 700 && app.mouseY > 585 && app.mouseY < 637) {
@@ -437,19 +484,11 @@ public class Logica {
 				reiniciarTiempo();
 			}
 		} else if (nivel == 5) {
-			if (app.key == app.ENTER) {
-				sigPalabra();
-			} else {
-				validarPalabra();
-			}
+			validarPalabra();
 		} else if (nivel == 7) {
-			if (app.key == app.ENTER) {
-				sigOracion();
-			}
+			validarOracion();
 		} else if (nivel == 9) {
-			if (app.key == app.ENTER) {
-				sigParrafo();
-			}
+			validarParrafo();
 		}
 
 	}
@@ -458,40 +497,171 @@ public class Logica {
 		System.out.println(tiempo);
 		reiniciarTiempo();
 		opacidad = 0;
-		if (contadorItem != 2) {
-			contadorItem++;
-		} else {
-			nivel++;
-			//
-			imgOpacidad = 0;
-			//
+
+		app.image(emoji[frame], x, y);
+
+		if (app.frameCount % 4 == 0) {
+
+			frame++;
+
+			if (frame == 11) {
+				reiniciarTiempo();
+
+				if (contadorItem != 2) {
+					contadorItem++;
+				} else {
+					nivel++;
+					//
+					imgOpacidad = 0;
+					//
+				}
+				frame = 0;
+				contadorGeneral++;
+				tareaTerminadaParr = false;
+			}
+		}
+	}
+
+	private void sigParrafoMal() {
+		System.out.println(tiempo);
+		reiniciarTiempo();
+		opacidad = 0;
+
+		app.image(emoji2[frame], x, y);
+
+		if (app.frameCount % 4 == 0) {
+
+			frame++;
+
+			if (frame == 11) {
+				reiniciarTiempo();
+
+				if (contadorItem != 2) {
+					contadorItem++;
+				} else {
+					nivel++;
+					//
+					imgOpacidad = 0;
+					//
+				}
+				frame = 0;
+				contadorGeneral++;
+				tareaTerminadaMalParr = false;
+			}
 		}
 	}
 
 	private void sigOracion() {
 		System.out.println(tiempo);
-		reiniciarTiempo();
 		opacidad = 0;
-		if (contadorItem != 4) {
-			contadorItem++;
-		} else {
-			nivel++;
-			//
-			imgOpacidad = 0;
-			//
+
+		app.image(emoji[frame], x, y);
+
+		if (app.frameCount % 4 == 0) {
+
+			frame++;
+
+			if (frame == 11) {
+				reiniciarTiempo();
+
+				if (contadorItem != 4) {
+					contadorItem++;
+				} else {
+					nivel++;
+					//
+					imgOpacidad = 0;
+					//
+				}
+
+				frame = 0;
+				contadorGeneral++;
+				tareaTerminadaOr = false;
+			}
+		}
+	}
+
+	private void sigOracionMal() {
+		System.out.println(tiempo);
+		opacidad = 0;
+
+		app.image(emoji2[frame], x, y);
+
+		if (app.frameCount % 4 == 0) {
+
+			frame++;
+
+			if (frame == 11) {
+				reiniciarTiempo();
+
+				if (contadorItem != 4) {
+					contadorItem++;
+				} else {
+					nivel++;
+					//
+					imgOpacidad = 0;
+					//
+				}
+
+				frame = 0;
+				contadorGeneral++;
+				tareaTerminadaMalOr = false;
+			}
 		}
 	}
 
 	private void sigPalabra() {
-
 		opacidad = 0;
-		if (contadorItem != 20) {
-			contadorItem++;
-		} else {
-			nivel++;
-			//
-			imgOpacidad = 0;
-			//
+
+		app.image(emoji[frame], x, y);
+
+		if (app.frameCount % 4 == 0) {
+
+			frame++;
+
+			if (frame == 11) {
+				reiniciarTiempo();
+
+				if (contadorItem != 20) {
+					contadorItem++;
+				} else {
+					nivel++;
+					//
+					imgOpacidad = 0;
+					//
+				}
+
+				frame = 0;
+				contadorGeneral++;
+				tareaTerminadaPal = false;
+			}
+		}
+	}
+
+	private void sigPalabraMal() {
+		opacidad = 0;
+
+		app.image(emoji2[frame], x, y);
+
+		if (app.frameCount % 4 == 0) {
+
+			frame++;
+
+			if (frame == 11) {
+				reiniciarTiempo();
+
+				if (contadorItem != 20) {
+					contadorItem++;
+				} else {
+					nivel++;
+					//
+					imgOpacidad = 0;
+					//
+				}
+
+				frame = 0;
+				contadorGeneral++;
+				tareaTerminadaMalPal = false;
+			}
 		}
 	}
 
@@ -515,6 +685,7 @@ public class Logica {
 				}
 
 				frame = 0;
+				contadorGeneral++;
 				tareaTerminada = false;
 			}
 		}
@@ -540,6 +711,7 @@ public class Logica {
 				}
 
 				frame2 = 0;
+				contadorGeneral++;
 				tareaTerminadaMal = false;
 			}
 		}
@@ -555,50 +727,145 @@ public class Logica {
 		if (letrasTemp[0] == letraOprimida) {
 			System.out.println(app.key + " es correto!");
 			tareaTerminada = true;
+			acerto[contadorGeneral] = true;
 			audioBueno.trigger();
 		} else if (letrasTemp[0] != letraOprimida) {
 			System.out.println(app.key + " es incorreto!");
 			tareaTerminadaMal = true;
+			acerto[contadorGeneral] = false;
 			audioMalo.trigger();
 		}
+		resultadosUsuario[contadorGeneral] = "Letra correspondiente: " + letrasTemp[0] + "/ escribió: "
+				+ Character.toString(app.key) + "/ acertó: " + acerto[contadorGeneral] + "/ en este tiempo: " + tiempo;
 	}
 
 	public void validarPalabra() {
-		char letraOprimida = ' ';
-		letraOprimida = app.key;
-		char[] palabrasTemp = palabras.get(contadorItem - 1).getPalabra().toCharArray();
+		char[] palabraTemp = palabras.get(contadorItem - 1).getPalabra().toCharArray();
+		String palabraTempString = palabras.get(contadorItem - 1).getPalabra();
+		palabraEscrita = palabraEscrita + app.key;
 
-		palabraEscrita = palabraEscrita + letraOprimida;
-
-		palabrasEscritas.add(new Palabra(palabraEscrita));
-
-		for (int j = 0; j < palabrasEscritas.size(); j++) {
-			System.out.println(palabrasEscritas.get(j).getPalabra());
-		}
-
-		if (contadorInterno >= palabrasTemp.length) {
-			contadorInterno = 0;
-			System.out.println("Se reinició");
-		}
-
-		if (palabrasTemp[contadorInterno] == letraOprimida) {
-			System.out.println(letraOprimida + " es igual a " + palabrasTemp[contadorInterno]);
-			contadorInterno++;
+		if (palabraTemp[contadorInternoPal] == app.key) {
+			System.out.println(app.key + " es igual a " + palabraTemp[contadorInternoPal]);
 		} else {
-			System.out.println(letraOprimida + " es diferente a " + palabrasTemp[contadorInterno]);
-			contadorInterno++;
+			System.out.println(app.key + " es diferente a " + palabraTemp[contadorInternoPal]);
 		}
 
+		contadorInternoPal++;
+
+		for (int i = 0; i < palabraTemp.length; i++) {
+			System.out.println("El contador item es: " + contadorItem + " Palabra temporal: " + palabraTemp[i]
+					+ " la escrita es: " + palabraEscrita + ";" + palabraTemp.length);
+			System.out.println("Palabra:" + palabras.get(contadorItem - 1).getPalabra() + ".");
+		}
+
+		if (contadorInternoPal == palabraTemp.length) {
+			if (palabraTempString.equals(palabraEscrita)) {
+				System.out.println("EQUALS!");
+				acerto[contadorGeneral] = true;
+				tareaTerminadaPal = true;
+				audioBueno.trigger();
+			} else {
+				System.out.println("WRONG!");
+				acerto[contadorGeneral] = false;
+				tareaTerminadaMalPal = true;
+				audioMalo.trigger();
+			}
+			resultadosUsuario[contadorGeneral] = "Palabra correspondiente: " + palabraTempString + "/ escribió: "
+					+ palabraEscrita + "/ acertó: " + acerto[contadorGeneral] + "/ en este tiempo: " + tiempo;
+			palabraEscrita = "";
+			contadorInternoPal = 0;
+		}
+
+	}
+
+	public void validarOracion() {
+
+		char[] oracionTemp = oraciones.get(contadorItem - 1).getOracion().toCharArray();
+		String oracionTempString = oraciones.get(contadorItem - 1).getOracion();
+		oracionEscrita = oracionEscrita + app.key;
+
+		if (oracionTemp[contadorInternoOr] == app.key) {
+			System.out.println(app.key + " es igual a " + oracionTemp[contadorInternoOr]);
+		} else {
+			System.out.println(app.key + " es diferente a " + oracionTemp[contadorInternoOr]);
+		}
+
+		contadorInternoOr++;
+
+		for (int i = 0; i < oracionTemp.length; i++) {
+			System.out.println("El contador item es: " + contadorItem + " Oración temporal: " + oracionTemp[i]
+					+ " la escrita es: " + oracionEscrita + ";" + oracionTemp.length);
+			System.out.println("Palabra:" + oraciones.get(contadorItem - 1).getOracion() + ".");
+		}
+
+		if (contadorInternoOr == oracionTemp.length) {
+			if (oracionTempString.equals(oracionEscrita)) {
+				System.out.println("EQUALS!");
+				acerto[contadorGeneral] = true;
+				tareaTerminadaOr = true;
+				audioBueno.trigger();
+			} else {
+				System.out.println("WRONG!");
+				acerto[contadorGeneral] = false;
+				tareaTerminadaMalOr = true;
+				audioMalo.trigger();
+			}
+			resultadosUsuario[contadorGeneral] = "Oración correspondiente: " + oracionTempString + "/ escribió: "
+					+ oracionEscrita + "/ acertó: " + acerto[contadorGeneral] + "/ en este tiempo: " + tiempo;
+			oracionEscrita = "";
+			contadorInternoOr = 0;
+		}
+
+	}
+
+	public void validarParrafo() {
+
+		char[] parrafoTemp = parrafos.get(contadorItem - 1).getParrafo().toCharArray();
+		String parrafoTempString = parrafos.get(contadorItem - 1).getParrafo();
+		parrafoEscrito = parrafoEscrito + app.key;
+
+		if (parrafoTemp[contadorInternoParr] == app.key) {
+			System.out.println(app.key + " es igual a " + parrafoTemp[contadorInternoParr]);
+		} else {
+			System.out.println(app.key + " es diferente a " + parrafoTemp[contadorInternoParr]);
+		}
+
+		contadorInternoParr++;
+
+		for (int i = 0; i < parrafoTemp.length; i++) {
+			System.out.println("El contador item es: " + contadorItem + " Parrafo temporal: " + parrafoTemp[i]
+					+ " la escrita es: " + parrafoEscrito + ";" + parrafoTemp.length);
+			System.out.println("Parrafo:" + parrafos.get(contadorItem - 1).getParrafo() + ".");
+		}
+
+		if (contadorInternoParr == parrafoTemp.length) {
+			if (parrafoTempString.equals(parrafoEscrito)) {
+				System.out.println("EQUALS!");
+				acerto[contadorGeneral] = true;
+				tareaTerminadaParr = true;
+				audioBueno.trigger();
+			} else {
+				System.out.println("WRONG!");
+				acerto[contadorGeneral] = false;
+				tareaTerminadaMalParr = true;
+				audioMalo.trigger();
+			}
+			resultadosUsuario[contadorGeneral] = "Párrafo correspondiente: " + parrafoTempString + "/ escribió: "
+					+ parrafoEscrito + "/ acertó: " + acerto[contadorGeneral] + "/ en este tiempo: " + tiempo;
+			parrafoEscrito = "";
+			contadorInternoParr = 0;
+		}
+		
 	}
 
 	public void generarBaseDeDatos() {
 		BufferedWriter salida;
-		String datosUsuario = "Usuario: " + nombre + " Semestre: " + semestre + " Carrera: " + carrera;
+		String textoFinal = app.join(resultadosUsuario, "\n");
 		// String txtNuevo = app.join(datosUsuario, " "); //Se crea el String que recibe
 		// el texto con las modificaciones y las une
 		try {
 			salida = new BufferedWriter(new FileWriter("data/resultados.txt"));
-			salida.write(datosUsuario); // Se escribe el String que contiene las modificaciones en el txt nuevo
+			salida.write(textoFinal); // Se escribe el String que contiene las modificaciones en el txt nuevo
 			salida.flush();
 			salida.close();
 		} catch (IOException e) {
