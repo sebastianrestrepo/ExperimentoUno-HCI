@@ -495,6 +495,7 @@ public class Logica {
 
 	public void mouse() {
 		// Cambiar pantalla
+		System.out.println("NIIIIIIIIIIIIIIIIIIIIIVAEEEEEEEEEEEEEL" + nivel);
 		if (nivel == 0) {
 			if (app.mouseX >= 521 && app.mouseX <= 683 && app.mouseY >= 389 && app.mouseY < 440) {
 				imgOpacidad = 0;
