@@ -55,6 +55,7 @@ public class Logica {
 	private String letraEscrita;
 	private boolean animar;
 	
+	private int [] puntajeNiveles;
 	private PImage puntaje[];
 	
 	private ControlP5 cp5;
@@ -125,7 +126,7 @@ public class Logica {
 		puntaje = new PImage[16];
 
 		for (int i = 1; i < 16; i++) {
-			puntaje[i - 1] = app.loadImage("../data/Puntaje/1 (" + i + ").png");
+			puntaje[i - 1] = app.loadImage("../data/Puntaje/puntaje (" + i + ").png");
 		}
 	}
 
@@ -164,6 +165,8 @@ public class Logica {
 		parr2 = minim.loadSample("../data/Audio 2 Lento.mp3", 512);
 		
 		parrAudio = new AudioPlayer[2];
+		puntajeNiveles = new int [4];
+
 
 		for (int i = 0; i < 2; i++) {
 			parrAudio[i] = minim.loadFile("../data/Audio " + i + 1 + " Lento.mp3",512);
@@ -303,7 +306,29 @@ public class Logica {
 				imgPuntaje = 12;
 				app.image(puntaje[imgPuntaje], x, y - 130);
 				
+				float tamArreglo = letras.size();
+				float puntajeNivel1 = puntajeNiveles[0];
+				int calcularPuntaje = (int) (app.map(puntajeNivel1, 0, tamArreglo, 1, 4));
+				
+				System.out.println("El puntaje real es : " + puntajeNiveles[0] + " El puntaje es: " + calcularPuntaje);;
+				
+				switch(calcularPuntaje) {
+				case 1:
+					app.image(puntaje[0], x, y - 130);
+					break;
+				case 2:
+					app.image(puntaje[1], x, y - 130);
+					break;
+				case 3:
+					app.image(puntaje[2], x, y - 130);
+					break;
+				case 4:
+					app.image(puntaje[3], x, y - 130);
+					break;
+				}
 			}
+			
+			
 			break;
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -341,7 +366,26 @@ public class Logica {
 			//
 			if (!animar) {
 				app.image(imgs[2], x, y);
-
+				float tamArreglo = palabras.size();
+				float puntajeNivel2 = puntajeNiveles[1];
+				int calcularPuntaje = (int) (app.map(puntajeNivel2, 0, tamArreglo, 1, 4));
+				
+				System.out.println("El puntaje real es : " + puntajeNiveles[1] + " El puntaje es: " + calcularPuntaje);
+				
+				switch(calcularPuntaje) {
+				case 1:
+					app.image(puntaje[4], x, y - 130);
+					break;
+				case 2:
+					app.image(puntaje[5], x, y - 130);
+					break;
+				case 3:
+					app.image(puntaje[6], x, y - 130);
+					break;
+				case 4:
+					app.image(puntaje[7], x, y - 130);
+					break;
+				}
 			}
 			
 			else if (animar) {
@@ -391,6 +435,26 @@ public class Logica {
 			//
 			if (!animar) {
 				app.image(imgs[3], x, y);
+				float tamArregloOr = oraciones.size();
+				float puntajeNivel3 = puntajeNiveles[2];
+				int calcularPuntajeOr = (int) (app.map(puntajeNivel3, 0, tamArregloOr, 1, 4));
+				
+				System.out.println("El puntaje real es : " + puntajeNiveles[2] + " El puntaje es: " + calcularPuntajeOr);
+				
+				switch(calcularPuntajeOr) {
+				case 1:
+					app.image(puntaje[8], x, y - 130);
+					break;
+				case 2:
+					app.image(puntaje[9], x, y - 130);
+					break;
+				case 3:
+					app.image(puntaje[10], x, y - 130);
+					break;
+				case 4:
+					app.image(puntaje[11], x, y - 130);
+					break;
+				}
 			}
 			if (animar) {
 				app.image(nivel4[frame6], x, y);
@@ -399,8 +463,6 @@ public class Logica {
 					if (frame6 == 22) {
 						nivel = 9;
 						animar = false;
-						parrAudio[0].play();
-
 						}
 				} 
 			}
@@ -641,6 +703,7 @@ public class Logica {
 				}
 				frame = 0;
 				contadorGeneral++;
+				puntajeNiveles[3]++;
 				tareaTerminadaParr = false;
 			}
 		}
@@ -728,6 +791,7 @@ public class Logica {
 
 				frame = 0;
 				contadorGeneral++;
+				puntajeNiveles[2]++;
 				tareaTerminadaMalOr = false;
 			}
 		}
@@ -756,6 +820,8 @@ public class Logica {
 
 				frame = 0;
 				contadorGeneral++;
+				puntajeNiveles[1]++;
+
 				tareaTerminadaPal = false;
 			}
 		}
@@ -810,6 +876,7 @@ public class Logica {
 
 				frame = 0;
 				contadorGeneral++;
+				puntajeNiveles[0]++;
 				tareaTerminada = false;
 			}
 		}
