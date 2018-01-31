@@ -320,7 +320,6 @@ public class Logica {
 			fadeInImg();
 			//
 			
-			app.image(imgs[2], x, y);
 			
 			if (animar) {
 				app.image(imgs[0], x, y);
@@ -331,6 +330,9 @@ public class Logica {
 						nivel = 7;
 						animar = false;
 						}
+				} else {
+					app.image(imgs[2], x, y);
+
 				}
 			}
 			break;
@@ -368,7 +370,6 @@ public class Logica {
 			//
 			fadeInImg();
 			//
-			app.image(imgs[3], x, y);
 
 			if (animar) {
 				app.image(nivel4[frame6], x, y);
@@ -378,6 +379,9 @@ public class Logica {
 						nivel = 9;
 						animar = false;
 						}
+				} else {
+					app.image(imgs[3], x, y);
+
 				}
 			}
 			break;
