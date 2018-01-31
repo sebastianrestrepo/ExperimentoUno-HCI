@@ -32,6 +32,8 @@ public class Logica {
 	int frame4 = 0;
 	int frame5 = 0;
 	int frame6 = 0;
+	
+	int imgPuntaje;
 	private String[] texto;
 	private String datosUsuario, nombre, carrera, semestre, edad, genero;
 	private boolean[] acerto;
@@ -51,6 +53,8 @@ public class Logica {
 	private String letraEscrita;
 	private boolean animar;
 	
+	private PImage puntaje[];
+	
 	private ControlP5 cp5;
 
 	public Logica(PApplet app) {
@@ -68,11 +72,11 @@ public class Logica {
 	private void cargarImgs() {
 		imgs = new PImage[8];
 
-		planetas = new PImage[4];
-
 		for (int i = 0; i < imgs.length; i++) {
 			imgs[i] = app.loadImage("../data/n" + i + ".png");
 		}
+		
+		planetas = new PImage[4];
 
 		for (int i = 0; i < planetas.length; i++) {
 			planetas[i] = app.loadImage("../data/planeta" + i + ".png");
@@ -114,6 +118,12 @@ public class Logica {
 
 		for (int i = 1; i < 23; i++) {
 			nivel4[i - 1] = app.loadImage("../data/Animacion nivel 4/NivelCuatro_" + i + ".png");
+		}
+		
+		puntaje = new PImage[16];
+
+		for (int i = 1; i < 16; i++) {
+			puntaje[i - 1] = app.loadImage("../data/Puntaje/1 (" + i + ").png");
 		}
 	}
 
@@ -282,7 +292,9 @@ public class Logica {
 				}
 			} else {
 				app.image(imgs[1], x, y);
-
+				imgPuntaje = 12;
+				app.image(puntaje[imgPuntaje], x, y - 130);
+				
 			}
 			break;
 
@@ -381,7 +393,6 @@ public class Logica {
 						}
 				} else {
 					app.image(imgs[3], x, y);
-
 				}
 			}
 			break;
