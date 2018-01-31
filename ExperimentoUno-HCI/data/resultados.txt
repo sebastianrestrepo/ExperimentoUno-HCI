@@ -1,0 +1,52 @@
+Usuario:  Semestre:  Carrera:  Edad:  Genero: 
+Letra correspondiente: f / escribió: h / acerto: false / en este tiempo: 2:62830
+Letra correspondiente: p / escribió: h / acerto: false / en este tiempo: 0:488
+Letra correspondiente: q / escribió: h / acerto: false / en este tiempo: 1:1439
+Letra correspondiente: n / escribió: h / acerto: false / en este tiempo: 3:3886
+Letra correspondiente: v / escribió: j / acerto: false / en este tiempo: 0:404
+Letra correspondiente: s / escribió: b / acerto: false / en este tiempo: 0:337
+Letra correspondiente: y / escribió: j / acerto: false / en este tiempo: 0:295
+Letra correspondiente: m / escribió: h / acerto: false / en este tiempo: 0:266
+Letra correspondiente: a / escribió: g / acerto: false / en este tiempo: 0:285
+Letra correspondiente: r / escribió: y / acerto: false / en este tiempo: 0:107
+Letra correspondiente: k / escribió: g / acerto: false / en este tiempo: 0:543
+Letra correspondiente: x / escribió: u / acerto: false / en este tiempo: 0:232
+Letra correspondiente: t / escribió: k / acerto: false / en este tiempo: 0:105
+Letra correspondiente: i / escribió: f / acerto: false / en este tiempo: 0:353
+Letra correspondiente: z / escribió: g / acerto: false / en este tiempo: 0:613
+Letra correspondiente: l / escribió: h / acerto: false / en este tiempo: 0:403
+Letra correspondiente: h / escribió: j / acerto: false / en este tiempo: 0:162
+Letra correspondiente: w / escribió: h / acerto: false / en este tiempo: 0:224
+Letra correspondiente: o / escribió: g / acerto: false / en este tiempo: 0:274
+Letra correspondiente: g / escribió: g / acerto: true / en este tiempo: 5:5946
+Letra correspondiente: e / escribió: g / acerto: false / en este tiempo: 0:954
+Letra correspondiente: b / escribió: h / acerto: false / en este tiempo: 0:865
+Letra correspondiente: u / escribió: h / acerto: false / en este tiempo: 2:2544
+Letra correspondiente: d / escribió: g / acerto: false / en este tiempo: 1:1199
+Letra correspondiente: j / escribió: g / acerto: false / en este tiempo: 0:762
+Palabra correspondiente: flor / escribió: flor / acertó: true / en este tiempo: 5:5402
+Palabra correspondiente: vivir / escribió: ivirv / acertó: false / en este tiempo: 3:3329
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null

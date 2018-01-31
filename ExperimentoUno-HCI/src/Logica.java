@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import controlP5.ControlP5;
 import controlP5.Textfield;
+import ddf.minim.AudioPlayer;
 import ddf.minim.AudioSample;
 import ddf.minim.Minim;
 import processing.core.PApplet;
@@ -20,6 +21,7 @@ public class Logica {
 	private boolean tareaTerminada, tareaTerminadaMal, tareaTerminadaPal, tareaTerminadaMalPal, tareaTerminadaOr,
 			tareaTerminadaMalOr, tareaTerminadaParr, tareaTerminadaMalParr;
 	private AudioSample audioBueno, audioMalo, parr1, parr2;
+	private AudioPlayer _parr1, _parr2, parrAudio [];
 	private Minim minim;
 	private PFont dosisFuente, dosisFuenteReg, dosisCampos;
 	private int x, y;
@@ -159,7 +161,13 @@ public class Logica {
 		audioBueno = minim.loadSample("../data/Bueno.mp3", 512);
 		audioMalo = minim.loadSample("../data/Malo.mp3", 512);
 		parr1 = minim.loadSample("../data/Audio 1 Lento.mp3", 512);
-		parr2 = minim.loadSample("../data/Audio 3 Lento.mp3", 512);
+		parr2 = minim.loadSample("../data/Audio 2 Lento.mp3", 512);
+		
+		parrAudio = new AudioPlayer[2];
+
+		for (int i = 0; i < 2; i++) {
+			parrAudio[i] = minim.loadFile("../data/Audio " + i + 1 + " Lento.mp3",512);
+		}
 		}
 
 	private void cargarTexto() {
@@ -331,10 +339,12 @@ public class Logica {
 			//
 			fadeInImg();
 			//
+			if (!animar) {
+				app.image(imgs[2], x, y);
+
+			}
 			
-			
-			if (animar) {
-				app.image(imgs[0], x, y);
+			else if (animar) {
 				app.image(nivel3[frame5], x, y);
 				if (app.frameCount % 5 == 0) {
 					frame5++;
@@ -342,10 +352,7 @@ public class Logica {
 						nivel = 7;
 						animar = false;
 						}
-				} else {
-					app.image(imgs[2], x, y);
-
-				}
+				}  
 			}
 			break;
 
@@ -382,7 +389,9 @@ public class Logica {
 			//
 			fadeInImg();
 			//
-
+			if (!animar) {
+				app.image(imgs[3], x, y);
+			}
 			if (animar) {
 				app.image(nivel4[frame6], x, y);
 				if (app.frameCount % 5 == 0) {
@@ -390,10 +399,10 @@ public class Logica {
 					if (frame6 == 22) {
 						nivel = 9;
 						animar = false;
+						parrAudio[0].play();
+
 						}
-				} else {
-					app.image(imgs[3], x, y);
-				}
+				} 
 			}
 			break;
 
@@ -407,20 +416,19 @@ public class Logica {
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text("Nivel 4", x, y - 250);
 			fadeIn();
-
-			setFuenteBold(48, 255);
-			app.textAlign(app.CENTER, app.CENTER);
-			app.text(parrafos.get(contadorItem - 1).getParrafo(), x, y, 900, 300);
+			
+			
 			
 			setFuenteBold(35, 255);
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text(contadorItem + "/2", x+500, y - 250);
-			
 			if (tareaTerminadaParr) {
 				sigParrafo();
+
 			}
 			if (tareaTerminadaMalParr) {
 				sigParrafoMal();
+
 			}
 			
 			break;
@@ -496,6 +504,7 @@ public class Logica {
 	public void mouse() {
 		// Cambiar pantalla
 		System.out.println("NIIIIIIIIIIIIIIIIIIIIIVAEEEEEEEEEEEEEL" + nivel);
+		System.out.println("ANIMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR" + animar);
 		if (nivel == 0) {
 			if (app.mouseX >= 521 && app.mouseX <= 683 && app.mouseY >= 389 && app.mouseY < 440) {
 				imgOpacidad = 0;
