@@ -112,6 +112,8 @@ public class Logica {
 		opacidad = 255;
 		imgOpacidad = 0;
 		palabraEscrita = "";
+		oracionEscrita = "";
+		parrafoEscrito = "";
 		resultadosUsuario = new String[52];
 		acerto = new boolean[52];
 		minim = new Minim(app);
@@ -735,8 +737,8 @@ public class Logica {
 			acerto[contadorGeneral] = false;
 			audioMalo.trigger();
 		}
-		resultadosUsuario[contadorGeneral] = "Letra correspondiente: " + letrasTemp[0] + "/ escribió: "
-				+ Character.toString(app.key) + "/ acertó: " + acerto[contadorGeneral] + "/ en este tiempo: " + tiempo;
+		resultadosUsuario[contadorGeneral] = "Letra correspondiente: " + letrasTemp[0] + " / escribió: "
+				+ Character.toString(app.key) + " / acertó: " + acerto[contadorGeneral] + " / en este tiempo: " + tiempo;
 	}
 
 	public void validarPalabra() {
@@ -770,8 +772,8 @@ public class Logica {
 				tareaTerminadaMalPal = true;
 				audioMalo.trigger();
 			}
-			resultadosUsuario[contadorGeneral] = "Palabra correspondiente: " + palabraTempString + "/ escribió: "
-					+ palabraEscrita + "/ acertó: " + acerto[contadorGeneral] + "/ en este tiempo: " + tiempo;
+			resultadosUsuario[contadorGeneral] = "Palabra correspondiente: " + palabraTempString + " / escribió: "
+					+ palabraEscrita + " / acertó: " + acerto[contadorGeneral] + " / en este tiempo: " + tiempo;
 			palabraEscrita = "";
 			contadorInternoPal = 0;
 		}
@@ -795,7 +797,7 @@ public class Logica {
 		for (int i = 0; i < oracionTemp.length; i++) {
 			System.out.println("El contador item es: " + contadorItem + " Oración temporal: " + oracionTemp[i]
 					+ " la escrita es: " + oracionEscrita + ";" + oracionTemp.length);
-			System.out.println("Palabra:" + oraciones.get(contadorItem - 1).getOracion() + ".");
+			System.out.println("Oracion:" + oraciones.get(contadorItem - 1).getOracion() + ".");
 		}
 
 		if (contadorInternoOr == oracionTemp.length) {
@@ -810,8 +812,8 @@ public class Logica {
 				tareaTerminadaMalOr = true;
 				audioMalo.trigger();
 			}
-			resultadosUsuario[contadorGeneral] = "Oración correspondiente: " + oracionTempString + "/ escribió: "
-					+ oracionEscrita + "/ acertó: " + acerto[contadorGeneral] + "/ en este tiempo: " + tiempo;
+			resultadosUsuario[contadorGeneral] = "Oración correspondiente: " + oracionTempString + " / escribió: "
+					+ oracionEscrita + " / acertó: " + acerto[contadorGeneral] + " / en este tiempo: " + tiempo;
 			oracionEscrita = "";
 			contadorInternoOr = 0;
 		}
