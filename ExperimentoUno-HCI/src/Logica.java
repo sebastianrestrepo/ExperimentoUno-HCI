@@ -270,7 +270,6 @@ public class Logica {
 			}
 
 			if (tareaTerminadaMal) {
-				sigLetraMal();
 			}
 
 			setFuenteBold(80, 255);
@@ -291,17 +290,7 @@ public class Logica {
 			//
 			
 			
-		
-			if (animar) {
-				app.image(nivel2[frame4], x, y);
-				if (app.frameCount % 5 == 0) {
-					frame4++;
-					if (frame4 == 22) {
-						nivel = 5;
-						animar = false;
-						}
-				}
-			} else {
+			if(!animar){
 				app.image(imgs[1], x, y);
 				imgPuntaje = 12;
 				app.image(puntaje[imgPuntaje], x, y - 130);
@@ -326,8 +315,16 @@ public class Logica {
 					app.image(puntaje[3], x, y - 130);
 					break;
 				}
-			}
-			
+			} else if (animar) {
+				app.image(nivel2[frame4], x, y);
+				if (app.frameCount % 5 == 0) {
+					frame4++;
+					if (frame4 == 22) {
+						nivel = 5;
+						animar = false;
+						}
+				}
+			} 
 			
 			break;
 
@@ -346,6 +343,11 @@ public class Logica {
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text(palabras.get(contadorItem - 1).getPalabra(), x, y);
 			
+			app.textFont(dosisFuente,48);
+			app.fill(255);
+			app.textAlign(app.CENTER, app.CENTER);
+			app.text(palabraEscrita, x, y);
+			
 			setFuenteBold(35, 255);
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text(contadorItem + "/20", x+500, y - 250);
@@ -354,7 +356,6 @@ public class Logica {
 				sigPalabra();
 			}
 			if (tareaTerminadaMalPal) {
-				sigPalabraMal();
 			}
 
 			break;
@@ -415,15 +416,19 @@ public class Logica {
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text(oraciones.get(contadorItem - 1).getOracion(), x, y, 900, 300);
 			
-			setFuenteBold(35, 255);
+			app.textFont(dosisFuente,48);
+			app.fill(255);
 			app.textAlign(app.CENTER, app.CENTER);
-			app.text(contadorItem + "/4", x+500, y - 250);
+			app.text(oracionEscrita, x, y, 900, 300);
+			
+			setFuenteBold(35, 255);
+			app.textAlign(app.CORNER, app.CORNER);
+			app.text(contadorItem + "/4", 150,200);
 
 			if (tareaTerminadaOr) {
 				sigOracion();
 			}
 			if (tareaTerminadaMalOr) {
-				sigOracionMal();
 			}
 
 			break;
@@ -489,7 +494,6 @@ public class Logica {
 
 			}
 			if (tareaTerminadaMalParr) {
-				sigParrafoMal();
 
 			}
 			
@@ -667,7 +671,9 @@ public class Logica {
 			} else {
 				System.out.println(tiempo);
 				validarLetra();
-				reiniciarTiempo();
+				if (tareaTerminada) {
+					reiniciarTiempo();					
+				}
 			}
 		} else if (nivel == 5) {
 			validarPalabra();
@@ -709,34 +715,7 @@ public class Logica {
 		}
 	}
 
-	private void sigParrafoMal() {
-		System.out.println(tiempo);
-		reiniciarTiempo();
-		opacidad = 0;
-
-		app.image(emoji2[frame], x, y);
-
-		if (app.frameCount % 4 == 0) {
-
-			frame++;
-
-			if (frame == 11) {
-				reiniciarTiempo();
-
-				if (contadorItem != 2) {
-					contadorItem++;
-				} else {
-					nivel++;
-					//
-					imgOpacidad = 0;
-					//
-				}
-				frame = 0;
-				contadorGeneral++;
-				tareaTerminadaMalParr = false;
-			}
-		}
-	}
+	
 
 	private void sigOracion() {
 		System.out.println(tiempo);
@@ -767,35 +746,6 @@ public class Logica {
 		}
 	}
 
-	private void sigOracionMal() {
-		System.out.println(tiempo);
-		opacidad = 0;
-
-		app.image(emoji2[frame], x, y);
-
-		if (app.frameCount % 4 == 0) {
-
-			frame++;
-
-			if (frame == 11) {
-				reiniciarTiempo();
-
-				if (contadorItem != 4) {
-					contadorItem++;
-				} else {
-					nivel++;
-					//
-					imgOpacidad = 0;
-					//
-				}
-
-				frame = 0;
-				contadorGeneral++;
-				puntajeNiveles[2]++;
-				tareaTerminadaMalOr = false;
-			}
-		}
-	}
 
 	private void sigPalabra() {
 		opacidad = 0;
@@ -827,33 +777,7 @@ public class Logica {
 		}
 	}
 
-	private void sigPalabraMal() {
-		opacidad = 0;
-
-		app.image(emoji2[frame], x, y);
-
-		if (app.frameCount % 4 == 0) {
-
-			frame++;
-
-			if (frame == 11) {
-				reiniciarTiempo();
-
-				if (contadorItem != 20) {
-					contadorItem++;
-				} else {
-					nivel++;
-					//
-					imgOpacidad = 0;
-					//
-				}
-
-				frame = 0;
-				contadorGeneral++;
-				tareaTerminadaMalPal = false;
-			}
-		}
-	}
+	
 
 	private void sigLetra() {
 		opacidad = 0;
@@ -882,31 +806,7 @@ public class Logica {
 		}
 	}
 
-	public void sigLetraMal() {
-		opacidad = 0;
-
-		app.image(emoji2[frame2], x, y);
-
-		if (app.frameCount % 4 == 0) {
-
-			frame2++;
-			if (frame2 == 13) {
-				reiniciarTiempo();
-				if (contadorItem != 25) {
-					contadorItem++;
-				} else {
-					nivel++;
-					//
-					imgOpacidad = 0;
-					//
-				}
-
-				frame2 = 0;
-				contadorGeneral++;
-				tareaTerminadaMal = false;
-			}
-		}
-	}
+	
 
 	public void validarLetra() {
 		letrasTemp = letras.get(contadorItem - 1).getLetra().toCharArray();
@@ -922,9 +822,9 @@ public class Logica {
 			audioBueno.trigger();
 		} else if (letrasTemp[0] != letraOprimida) {
 			System.out.println(app.key + " es incorreto!");
-			tareaTerminadaMal = true;
 			acerto[contadorGeneral] = false;
 			audioMalo.trigger();
+			letraOprimida = ' ';
 		}
 		
 		letraEscrita = Character.toString(app.key);
