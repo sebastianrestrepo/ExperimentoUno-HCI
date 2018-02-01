@@ -1,50 +1,50 @@
 Usuario:  Semestre:  Carrera:  Edad:  Genero: 
-Letra correspondiente: f / escribió: h / acerto: false / en este tiempo: 0:428
-Letra correspondiente: p / escribió: p / acerto: true / en este tiempo: 0:606
-Letra correspondiente: q / escribió: q / acerto: true / en este tiempo: 1:1376
-Letra correspondiente: n / escribió: n / acerto: true / en este tiempo: 1:1304
-Letra correspondiente: v / escribió: v / acerto: true / en este tiempo: 1:1105
-Letra correspondiente: s / escribió: s / acerto: true / en este tiempo: 0:946
-Letra correspondiente: y / escribió: y / acerto: true / en este tiempo: 1:1233
-Letra correspondiente: m / escribió: m / acerto: true / en este tiempo: 0:501
-Letra correspondiente: a / escribió: a / acerto: true / en este tiempo: 0:875
-Letra correspondiente: r / escribió: r / acerto: true / en este tiempo: 1:1232
-Letra correspondiente: k / escribió: ` / acerto: false / en este tiempo: 0:178
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
+Letra correspondiente: f / escribió: f / acerto: true / en este tiempo: 1:1965
+Letra correspondiente: p / escribió: p / acerto: true / en este tiempo: 1:1748
+Letra correspondiente: q / escribió: q / acerto: true / en este tiempo: 1:1195
+Letra correspondiente: n / escribió: n / acerto: true / en este tiempo: 1:1051
+Letra correspondiente: v / escribió: v / acerto: true / en este tiempo: 1:1000
+Letra correspondiente: s / escribió: s / acerto: true / en este tiempo: 1:1428
+Letra correspondiente: y / escribió: y / acerto: true / en este tiempo: 0:962
+Letra correspondiente: m / escribió: m / acerto: true / en este tiempo: 0:894
+Letra correspondiente: a / escribió: a / acerto: true / en este tiempo: 0:930
+Letra correspondiente: r / escribió: r / acerto: true / en este tiempo: 0:964
+Letra correspondiente: k / escribió: k / acerto: true / en este tiempo: 0:946
+Letra correspondiente: x / escribió: x / acerto: true / en este tiempo: 1:1286
+Letra correspondiente: t / escribió: t / acerto: true / en este tiempo: 1:1053
+Letra correspondiente: i / escribió: i / acerto: true / en este tiempo: 1:1000
+Letra correspondiente: z / escribió: z / acerto: true / en este tiempo: 1:1068
+Letra correspondiente: l / escribió: l / acerto: true / en este tiempo: 1:1016
+Letra correspondiente: h / escribió: h / acerto: true / en este tiempo: 0:925
+Letra correspondiente: w / escribió: w / acerto: true / en este tiempo: 1:1125
+Letra correspondiente: o / escribió: o / acerto: true / en este tiempo: 1:1070
+Letra correspondiente: g / escribió: g / acerto: true / en este tiempo: 1:1144
+Letra correspondiente: e / escribió: e / acerto: true / en este tiempo: 1:1713
+Letra correspondiente: b / escribió: b / acerto: true / en este tiempo: 0:874
+Letra correspondiente: u / escribió: u / acerto: true / en este tiempo: 0:946
+Letra correspondiente: d / escribió: d / acerto: true / en este tiempo: 1:1052
+Letra correspondiente: j / escribió: j / acerto: true / en este tiempo: 0:855
+Palabra correspondiente: flor / escribió: flor / acertó: true / en este tiempo: 5:5371
+Palabra correspondiente: vivir / escribió: vivir / acertó: true / en este tiempo: 9:9855
+Palabra correspondiente: reir / escribió: reir / acertó: true / en este tiempo: 2:2071
+Palabra correspondiente: rosa / escribió: rosa / acertó: true / en este tiempo: 1:1874
+Palabra correspondiente: zorro / escribió: zorro / acertó: true / en este tiempo: 1:1837
+Palabra correspondiente: cielo / escribió: cielo / acertó: true / en este tiempo: 1:1802
+Palabra correspondiente: sueño / escribió: sueño / acertó: true / en este tiempo: 5:5588
+Palabra correspondiente: amigo / escribió: amigo / acertó: true / en este tiempo: 2:2267
+Palabra correspondiente: tiempo / escribió: tiempo / acertó: true / en este tiempo: 1:1895
+Palabra correspondiente: planeta / escribió: planeta / acertó: true / en este tiempo: 7:7624
+Palabra correspondiente: esencial / escribió: esencial / acertó: true / en este tiempo: 2:2287
+Palabra correspondiente: alegria / escribió: alegria / acertó: true / en este tiempo: 2:2515
+Palabra correspondiente: realizar / escribió: realizar / acertó: true / en este tiempo: 2:2158
+Palabra correspondiente: misterio / escribió: misterio / acertó: true / en este tiempo: 15:15712
+Palabra correspondiente: principito / escribió: principito / acertó: true / en este tiempo: 3:3320
+Palabra correspondiente: privilegio / escribió: privilegio / acertó: true / en este tiempo: 2:2767
+Palabra correspondiente: sabiduria / escribió: sabiduria / acertó: true / en este tiempo: 2:2304
+Palabra correspondiente: fastidioso / escribió: fastidioso / acertó: true / en este tiempo: 2:2625
+Palabra correspondiente: astronomia / escribió: astronomia / acertó: true / en este tiempo: 2:2803
+Palabra correspondiente: tranquilamente / escribió: tranquilamente / acertó: true / en este tiempo: 12:12737
+Oración correspondiente: fue el tiempo que pasaste con tu rosa lo que la hizo tan importante / escribió: fue el tiempo que pasaste ocontlasdhflasdhlfasdhfkajsdfaksjdhfdkss / acertó: false / en este tiempo: 11:11634
 null
 null
 null
