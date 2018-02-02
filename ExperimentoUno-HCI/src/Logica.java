@@ -47,6 +47,7 @@ public class Logica {
 	private ArrayList<Palabra> palabras;
 	private ArrayList<Oracion> oraciones;
 	private ArrayList<Parrafo> parrafos;
+	private int errores;
 
 	private char[] letrasTemp;
 	private char[] palabraTemp;
@@ -61,6 +62,9 @@ public class Logica {
 	private String mostrarPalabra;
 
 	private ControlP5 cp5;
+	
+	private 	int erroresTempLetra, erroresTempPal, erroresTempOr, erroresTempParr;
+	private int puntajeFinal;
 
 	public Logica(PApplet app) {
 		this.app = app;
@@ -143,6 +147,7 @@ public class Logica {
 		tareaTerminadaParr = false;
 		tareaTerminadaMalParr = false;
 		contadorInternoPal = 0;
+		contadorInternoParr = 0;
 		contadorGeneral = 1;
 		cp5 = new ControlP5(app);
 		nivel = 0;
@@ -166,6 +171,11 @@ public class Logica {
 		audioMalo = minim.loadSample("../data/Malo.mp3", 512);
 		parr1 = minim.loadSample("../data/Audio 1 Lento.mp3", 512);
 		parr2 = minim.loadSample("../data/Audio 2 Lento.mp3", 512);
+		errores = 0;
+		erroresTempLetra = 0;
+		erroresTempOr = 0;
+		erroresTempParr = 0;
+		puntajeFinal = 1000;
 
 		parrAudio = new AudioPlayer[2];
 		puntajeNiveles = new int[4];
@@ -282,6 +292,10 @@ public class Logica {
 			setFuenteBold(35, 255);
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text(contadorItem + "/25", x + 500, y - 250);
+			
+			setFuenteBold(35, 255);
+			app.textAlign(app.CENTER, app.CENTER);
+			app.text(puntajeFinal, x - 500, y - 250);
 
 			break;
 
@@ -333,17 +347,21 @@ public class Logica {
 			fadeIn();
 
 			setFuenteBold(48, 255);
-			app.textAlign(app.CENTER, app.CENTER);
+			app.textAlign(app.LEFT, app.LEFT);
 			app.text(palabras.get(contadorItem - 1).getPalabra(), x, y);
 
 			app.textFont(dosisFuente, 48);
 			app.fill(255);
-			app.textAlign(app.CENTER, app.CENTER);
+			app.textAlign(app.LEFT, app.LEFT);
 			app.text(palabraEscrita, x, y);
 
 			setFuenteBold(35, 255);
-			app.textAlign(app.CENTER, app.CENTER);
+			app.textAlign(app.LEFT, app.LEFT);
 			app.text(contadorItem + "/20", x + 500, y - 250);
+			
+			setFuenteBold(35, 255);
+			app.textAlign(app.CENTER, app.CENTER);
+			app.text(puntajeFinal, x - 500, y - 250);
 
 			if (tareaTerminadaPal) {
 				sigPalabra();
@@ -396,17 +414,21 @@ public class Logica {
 			fadeIn();
 
 			setFuenteBold(48, 150);
-			app.textAlign(app.CENTER, app.CENTER);
+			app.textAlign(app.LEFT, app.LEFT);
 			app.text(oraciones.get(contadorItem - 1).getOracion(), x, y, 900, 300);
 
 			app.textFont(dosisFuente, 48);
 			app.fill(255);
-			app.textAlign(app.CENTER, app.CENTER);
+			app.textAlign(app.LEFT, app.LEFT);
 			app.text(oracionEscrita, x, y, 900, 300);
 
 			setFuenteBold(35, 255);
-			app.textAlign(app.CORNER, app.CORNER);
+			app.textAlign(app.LEFT, app.LEFT);
 			app.text(contadorItem + "/4", 150, 200);
+			
+			setFuenteBold(35, 255);
+			app.textAlign(app.CENTER, app.CENTER);
+			app.text(puntajeFinal, x - 500, y - 250);
 
 			if (tareaTerminadaOr) {
 				sigOracion();
@@ -462,6 +484,11 @@ public class Logica {
 			setFuenteBold(35, 255);
 			app.textAlign(app.CENTER, app.CENTER);
 			app.text(contadorItem + "/2", x + 500, y - 250);
+			
+			setFuenteBold(35, 255);
+			app.textAlign(app.CENTER, app.CENTER);
+			app.text(puntajeFinal, x - 500, y - 250);
+			
 			if (tareaTerminadaParr) {
 				sigParrafo();
 
@@ -823,30 +850,38 @@ public class Logica {
 			tareaTerminada = true;
 			acerto[contadorGeneral] = true;
 			audioBueno.trigger();
+			
+			letraEscrita = Character.toString(app.key);
+			resultadosUsuario[contadorGeneral] = "Letra correspondiente: " + letrasTemp[0] + " / cometió: " + erroresTempLetra + " errores / en este tiempo: " + tiempo;
+			
+			erroresTempLetra = 0;
 		} else if (letrasTemp[0] != letraOprimida) {
 			System.out.println(app.key + " es incorreto!");
 			acerto[contadorGeneral] = false;
 			audioMalo.trigger();
+			erroresTempLetra++;
+			errores++;
+			puntajeFinal-=5;
 			letraOprimida = ' ';
 		}
-
-		letraEscrita = Character.toString(app.key);
-		resultadosUsuario[contadorGeneral] = "Letra correspondiente: " + letrasTemp[0] + " / escribió: " + letraEscrita
-				+ " / acerto: " + acerto[contadorGeneral] + " / en este tiempo: " + tiempo;
+		
 	}
 
 	public void validarPalabra() {
 		palabraTemp = palabras.get(contadorItem - 1).getPalabra().toCharArray();
 		String palabraTempString = palabras.get(contadorItem - 1).getPalabra();
-		palabraEscrita = palabraEscrita + app.key;
 
 		if (palabraTemp[contadorInternoPal] == app.key) {
 			System.out.println(app.key + " es igual a " + palabraTemp[contadorInternoPal]);
+			palabraEscrita = palabraEscrita + app.key;
+			contadorInternoPal++;
 		} else {
+			errores++;
+			erroresTempPal++;
+			puntajeFinal-=5;
 			System.out.println(app.key + " es diferente a " + palabraTemp[contadorInternoPal]);
+			audioMalo.trigger();
 		}
-
-		contadorInternoPal++;
 
 		for (int i = 0; i < palabraTemp.length; i++) {
 			System.out.println("El contador item es: " + contadorItem + " Palabra temporal: " + palabraTemp[i]
@@ -858,20 +893,19 @@ public class Logica {
 			if (palabraTempString.equals(palabraEscrita)) {
 				System.out.println("EQUALS!");
 				mostrarPalabra = palabraEscrita;
-				acerto[contadorGeneral] = true;
-				tareaTerminadaPal = true;
 				audioBueno.trigger();
+				resultadosUsuario[contadorGeneral] = "Palabra correspondiente: " + palabraTempString + " / cometió: " + erroresTempPal + " errores / en este tiempo: " + tiempo;
+				palabraEscrita = "";
+				contadorInternoPal = 0;
+				erroresTempPal = 0;
+				tareaTerminadaPal = true;
 			} else {
 				System.out.println("WRONG!");
 				mostrarPalabra = palabraEscrita;
-				acerto[contadorGeneral] = false;
 				tareaTerminadaMalPal = true;
-				audioMalo.trigger();
+
 			}
-			resultadosUsuario[contadorGeneral] = "Palabra correspondiente: " + palabraTempString + " / escribió: "
-					+ palabraEscrita + " / acertó: " + acerto[contadorGeneral] + " / en este tiempo: " + tiempo;
-			palabraEscrita = "";
-			contadorInternoPal = 0;
+			
 		}
 
 	}
@@ -880,15 +914,19 @@ public class Logica {
 
 		oracionTemp = oraciones.get(contadorItem - 1).getOracion().toCharArray();
 		String oracionTempString = oraciones.get(contadorItem - 1).getOracion();
-		oracionEscrita = oracionEscrita + app.key;
 
 		if (oracionTemp[contadorInternoOr] == app.key) {
 			System.out.println(app.key + " es igual a " + oracionTemp[contadorInternoOr]);
+			oracionEscrita = oracionEscrita + app.key;
+			contadorInternoOr++;
 		} else {
 			System.out.println(app.key + " es diferente a " + oracionTemp[contadorInternoOr]);
+			audioMalo.trigger();
+			errores++;
+			erroresTempOr++;
+			puntajeFinal-=5;
 		}
 
-		contadorInternoOr++;
 
 		for (int i = 0; i < oracionTemp.length; i++) {
 			System.out.println("El contador item es: " + contadorItem + " Oración temporal: " + oracionTemp[i]
@@ -899,19 +937,19 @@ public class Logica {
 		if (contadorInternoOr == oracionTemp.length) {
 			if (oracionTempString.equals(oracionEscrita)) {
 				System.out.println("EQUALS!");
-				acerto[contadorGeneral] = true;
+				
+				resultadosUsuario[contadorGeneral] = "Oración correspondiente: " + oracionTempString + " / cometió: " + erroresTempOr + " errores / en este tiempo: "  + tiempo;
+				oracionEscrita = "";
+				contadorInternoOr = 0;
+				erroresTempPal = 0;
+				
 				tareaTerminadaOr = true;
 				audioBueno.trigger();
 			} else {
 				System.out.println("WRONG!");
-				acerto[contadorGeneral] = false;
-				tareaTerminadaMalOr = true;
-				audioMalo.trigger();
+		
 			}
-			resultadosUsuario[contadorGeneral] = "Oración correspondiente: " + oracionTempString + " / escribió: "
-					+ oracionEscrita + " / acertó: " + acerto[contadorGeneral] + " / en este tiempo: " + tiempo;
-			oracionEscrita = "";
-			contadorInternoOr = 0;
+			
 		}
 
 	}
@@ -920,15 +958,19 @@ public class Logica {
 
 		parrafoTemp = parrafos.get(contadorItem - 1).getParrafo().toCharArray();
 		String parrafoTempString = parrafos.get(contadorItem - 1).getParrafo();
-		parrafoEscrito = parrafoEscrito + app.key;
 
 		if (parrafoTemp[contadorInternoParr] == app.key) {
 			System.out.println(app.key + " es igual a " + parrafoTemp[contadorInternoParr]);
+			parrafoEscrito = parrafoEscrito + app.key;
+			contadorInternoParr++;
 		} else {
 			System.out.println(app.key + " es diferente a " + parrafoTemp[contadorInternoParr]);
+			audioMalo.trigger();
+			errores++;
+			erroresTempParr++;
+			puntajeFinal-=5;
 		}
 
-		contadorInternoParr++;
 
 		for (int i = 0; i < parrafoTemp.length; i++) {
 			System.out.println("El contador item es: " + contadorItem + " Parrafo temporal: " + parrafoTemp[i]
@@ -939,19 +981,16 @@ public class Logica {
 		if (contadorInternoParr == parrafoTemp.length) {
 			if (parrafoTempString.equals(parrafoEscrito)) {
 				System.out.println("EQUALS!");
-				acerto[contadorGeneral] = true;
-				tareaTerminadaParr = true;
 				audioBueno.trigger();
+				resultadosUsuario[contadorGeneral] = "Párrafo correspondiente: " + parrafoTempString + " / cometió: " + erroresTempParr + " errores / en este tiempo: " + "/ en este tiempo: " + tiempo;
+				parrafoEscrito = "";
+				contadorInternoParr = 0;
+				tareaTerminadaParr = true;
 			} else {
 				System.out.println("WRONG!");
-				acerto[contadorGeneral] = false;
-				tareaTerminadaMalParr = true;
-				audioMalo.trigger();
+	
 			}
-			resultadosUsuario[contadorGeneral] = "Párrafo correspondiente: " + parrafoTempString + "/ escribió: "
-					+ parrafoEscrito + "/ acertó: " + acerto[contadorGeneral] + "/ en este tiempo: " + tiempo;
-			parrafoEscrito = "";
-			contadorInternoParr = 0;
+
 		}
 
 	}

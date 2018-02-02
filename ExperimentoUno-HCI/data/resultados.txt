@@ -1,52 +1,52 @@
 Usuario:  Semestre:  Carrera:  Edad:  Genero: 
-Letra correspondiente: f / escribió: f / acerto: true / en este tiempo: 1:1965
-Letra correspondiente: p / escribió: p / acerto: true / en este tiempo: 1:1748
-Letra correspondiente: q / escribió: q / acerto: true / en este tiempo: 1:1195
-Letra correspondiente: n / escribió: n / acerto: true / en este tiempo: 1:1051
-Letra correspondiente: v / escribió: v / acerto: true / en este tiempo: 1:1000
-Letra correspondiente: s / escribió: s / acerto: true / en este tiempo: 1:1428
-Letra correspondiente: y / escribió: y / acerto: true / en este tiempo: 0:962
-Letra correspondiente: m / escribió: m / acerto: true / en este tiempo: 0:894
-Letra correspondiente: a / escribió: a / acerto: true / en este tiempo: 0:930
-Letra correspondiente: r / escribió: r / acerto: true / en este tiempo: 0:964
-Letra correspondiente: k / escribió: k / acerto: true / en este tiempo: 0:946
-Letra correspondiente: x / escribió: x / acerto: true / en este tiempo: 1:1286
-Letra correspondiente: t / escribió: t / acerto: true / en este tiempo: 1:1053
-Letra correspondiente: i / escribió: i / acerto: true / en este tiempo: 1:1000
-Letra correspondiente: z / escribió: z / acerto: true / en este tiempo: 1:1068
-Letra correspondiente: l / escribió: l / acerto: true / en este tiempo: 1:1016
-Letra correspondiente: h / escribió: h / acerto: true / en este tiempo: 0:925
-Letra correspondiente: w / escribió: w / acerto: true / en este tiempo: 1:1125
-Letra correspondiente: o / escribió: o / acerto: true / en este tiempo: 1:1070
-Letra correspondiente: g / escribió: g / acerto: true / en este tiempo: 1:1144
-Letra correspondiente: e / escribió: e / acerto: true / en este tiempo: 1:1713
-Letra correspondiente: b / escribió: b / acerto: true / en este tiempo: 0:874
-Letra correspondiente: u / escribió: u / acerto: true / en este tiempo: 0:946
-Letra correspondiente: d / escribió: d / acerto: true / en este tiempo: 1:1052
-Letra correspondiente: j / escribió: j / acerto: true / en este tiempo: 0:855
-Palabra correspondiente: flor / escribió: flor / acertó: true / en este tiempo: 5:5371
-Palabra correspondiente: vivir / escribió: vivir / acertó: true / en este tiempo: 9:9855
-Palabra correspondiente: reir / escribió: reir / acertó: true / en este tiempo: 2:2071
-Palabra correspondiente: rosa / escribió: rosa / acertó: true / en este tiempo: 1:1874
-Palabra correspondiente: zorro / escribió: zorro / acertó: true / en este tiempo: 1:1837
-Palabra correspondiente: cielo / escribió: cielo / acertó: true / en este tiempo: 1:1802
-Palabra correspondiente: sueño / escribió: sueño / acertó: true / en este tiempo: 5:5588
-Palabra correspondiente: amigo / escribió: amigo / acertó: true / en este tiempo: 2:2267
-Palabra correspondiente: tiempo / escribió: tiempo / acertó: true / en este tiempo: 1:1895
-Palabra correspondiente: planeta / escribió: planeta / acertó: true / en este tiempo: 7:7624
-Palabra correspondiente: esencial / escribió: esencial / acertó: true / en este tiempo: 2:2287
-Palabra correspondiente: alegria / escribió: alegria / acertó: true / en este tiempo: 2:2515
-Palabra correspondiente: realizar / escribió: realizar / acertó: true / en este tiempo: 2:2158
-Palabra correspondiente: misterio / escribió: misterio / acertó: true / en este tiempo: 15:15712
-Palabra correspondiente: principito / escribió: principito / acertó: true / en este tiempo: 3:3320
-Palabra correspondiente: privilegio / escribió: privilegio / acertó: true / en este tiempo: 2:2767
-Palabra correspondiente: sabiduria / escribió: sabiduria / acertó: true / en este tiempo: 2:2304
-Palabra correspondiente: fastidioso / escribió: fastidioso / acertó: true / en este tiempo: 2:2625
-Palabra correspondiente: astronomia / escribió: astronomia / acertó: true / en este tiempo: 2:2803
-Palabra correspondiente: tranquilamente / escribió: tranquilamente / acertó: true / en este tiempo: 12:12737
-Oración correspondiente: fue el tiempo que pasaste con tu rosa lo que la hizo tan importante / escribió: fue el tiempo que pasaste ocontlasdhflasdhlfasdhfkajsdfaksjdhfdkss / acertó: false / en este tiempo: 11:11634
-null
-null
-null
+Letra correspondiente: f / cometió: 0 errores / en este tiempo: 1:1236
+Letra correspondiente: p / cometió: 0 errores / en este tiempo: 0:945
+Letra correspondiente: q / cometió: 0 errores / en este tiempo: 0:883
+Letra correspondiente: n / cometió: 0 errores / en este tiempo: 0:823
+Letra correspondiente: v / cometió: 0 errores / en este tiempo: 0:964
+Letra correspondiente: s / cometió: 0 errores / en este tiempo: 0:866
+Letra correspondiente: y / cometió: 0 errores / en este tiempo: 0:892
+Letra correspondiente: m / cometió: 0 errores / en este tiempo: 0:827
+Letra correspondiente: a / cometió: 0 errores / en este tiempo: 0:731
+Letra correspondiente: r / cometió: 0 errores / en este tiempo: 0:860
+Letra correspondiente: k / cometió: 0 errores / en este tiempo: 0:949
+Letra correspondiente: x / cometió: 0 errores / en este tiempo: 1:1051
+Letra correspondiente: t / cometió: 0 errores / en este tiempo: 1:1431
+Letra correspondiente: i / cometió: 0 errores / en este tiempo: 0:910
+Letra correspondiente: z / cometió: 0 errores / en este tiempo: 0:875
+Letra correspondiente: l / cometió: 0 errores / en este tiempo: 1:1017
+Letra correspondiente: h / cometió: 0 errores / en este tiempo: 0:910
+Letra correspondiente: w / cometió: 0 errores / en este tiempo: 1:1065
+Letra correspondiente: o / cometió: 0 errores / en este tiempo: 0:945
+Letra correspondiente: g / cometió: 0 errores / en este tiempo: 1:1250
+Letra correspondiente: e / cometió: 0 errores / en este tiempo: 0:927
+Letra correspondiente: b / cometió: 1 errores / en este tiempo: 1:1070
+Letra correspondiente: u / cometió: 0 errores / en este tiempo: 0:765
+Letra correspondiente: d / cometió: 0 errores / en este tiempo: 1:1016
+Letra correspondiente: j / cometió: 0 errores / en este tiempo: 0:930
+Palabra correspondiente: flor / cometió: 0 errores / en este tiempo: 3:3542
+Palabra correspondiente: vivir / cometió: 0 errores / en este tiempo: 1:1301
+Palabra correspondiente: reir / cometió: 0 errores / en este tiempo: 1:1257
+Palabra correspondiente: rosa / cometió: 0 errores / en este tiempo: 1:1251
+Palabra correspondiente: zorro / cometió: 2 errores / en este tiempo: 2:2450
+Palabra correspondiente: cielo / cometió: 0 errores / en este tiempo: 1:1320
+Palabra correspondiente: sueño / cometió: 0 errores / en este tiempo: 1:1754
+Palabra correspondiente: amigo / cometió: 0 errores / en este tiempo: 1:1537
+Palabra correspondiente: tiempo / cometió: 0 errores / en este tiempo: 1:1568
+Palabra correspondiente: planeta / cometió: 0 errores / en este tiempo: 1:1512
+Palabra correspondiente: esencial / cometió: 0 errores / en este tiempo: 1:1926
+Palabra correspondiente: alegria / cometió: 0 errores / en este tiempo: 1:1427
+Palabra correspondiente: realizar / cometió: 0 errores / en este tiempo: 1:1751
+Palabra correspondiente: misterio / cometió: 0 errores / en este tiempo: 1:1677
+Palabra correspondiente: principito / cometió: 0 errores / en este tiempo: 2:2620
+Palabra correspondiente: privilegio / cometió: 0 errores / en este tiempo: 1:1693
+Palabra correspondiente: sabiduria / cometió: 0 errores / en este tiempo: 1:1694
+Palabra correspondiente: fastidioso / cometió: 0 errores / en este tiempo: 1:1729
+Palabra correspondiente: astronomia / cometió: 0 errores / en este tiempo: 1:1857
+Palabra correspondiente: tranquilamente / cometió: 0 errores / en este tiempo: 2:2358
+Oración correspondiente: fue el tiempo que pasaste con tu rosa lo que la hizo tan importante / cometió: 0 errores / en este tiempo: 12:12398
+Oración correspondiente: el se enamora de sus flores y no de sus raices y en otono no supo que hacer / cometió: 0 errores / en este tiempo: 32:32271
+Oración correspondiente: te mirara de reojo y tu no diras nada, la palabra es fuente de malentendidos / cometió: 0 errores / en este tiempo: 34:34820
+Oración correspondiente: yo puedo juzgarme a mi mismo en cualquier parte y no tengo necesidad de vivir aqui / cometió: 0 errores / en este tiempo: 14:14744
 null
 null
