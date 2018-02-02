@@ -465,6 +465,7 @@ public class Logica {
 				app.textAlign(app.CENTER, app.CENTER);
 				app.text("Nivel 3", x, y - 250);
 
+				
 				setFuenteBold(48, 150);
 				app.textAlign(app.LEFT, app.LEFT);
 				app.text(oraciones.get(contadorItem - 1).getOracion(), x - 150, y + 70, 900, 300);
