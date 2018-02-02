@@ -25,7 +25,7 @@ public class Logica {
 	private Minim minim;
 	private PFont dosisFuente, dosisFuenteReg, dosisCampos;
 	private int x, y;
-	private PImage imgs[], formulario, planetas[], emoji[], emoji2[], trans[], nivel2[], nivel3[], nivel4[];
+	private PImage imgs[], formulario, planetas[], emoji[], emoji2[], trans[], nivel2[], nivel3[], nivel4[], botonError;
 	private int contadorItem, opacidad, imgOpacidad;
 	private int contadorPal, contadorInternoPal, contadorInternoOr, contadorInternoParr, contadorGeneral;
 	int frame = 0;
@@ -37,7 +37,7 @@ public class Logica {
 
 	int imgPuntaje;
 	private String[] texto;
-	private String datosUsuario, nombre, carrera, semestre, edad, genero;
+	private String datosUsuario, nombre, carrera, ocupacion, edad, genero;
 	private boolean[] acerto;
 	private String[] resultadosUsuario;
 	private String palabraEscrita;
@@ -57,14 +57,17 @@ public class Logica {
 	private boolean animar;
 
 	private int[] puntajeNiveles;
-	private PImage puntaje[];
+	private PImage puntaje[], soundbtn, formularios[];
 
 	private String mostrarPalabra;
 
 	private ControlP5 cp5;
-	
-	private 	int erroresTempLetra, erroresTempPal, erroresTempOr, erroresTempParr;
+
+	private int erroresTempLetra, erroresTempPal, erroresTempOr, erroresTempParr;
+	private int erroresLetras, erroresPalabras, erroresOraciones, erroresParrafos;
 	private int puntajeFinal;
+	private int formularioInt;
+	private boolean mostrartexto;
 
 	public Logica(PApplet app) {
 		this.app = app;
@@ -79,6 +82,8 @@ public class Logica {
 	}
 
 	private void cargarImgs() {
+
+		soundbtn = app.loadImage("../data/soundbutton.png");
 		imgs = new PImage[8];
 
 		for (int i = 0; i < imgs.length; i++) {
@@ -134,9 +139,19 @@ public class Logica {
 		for (int i = 1; i < 16; i++) {
 			puntaje[i - 1] = app.loadImage("../data/Puntaje/puntaje (" + i + ").png");
 		}
+
+		formularios = new PImage[3];
+
+		for (int i = 0; i < formularios.length; i++) {
+			formularios[i] = app.loadImage("../data/formulario" + i + ".png");
+		}
+
+		botonError = app.loadImage("../data/botonError.png");
+
 	}
 
 	private void inicializarVars() {
+		mostrartexto = true;
 		animar = false;
 		tareaTerminada = false;
 		tareaTerminadaMal = false;
@@ -175,10 +190,15 @@ public class Logica {
 		erroresTempLetra = 0;
 		erroresTempOr = 0;
 		erroresTempParr = 0;
+		erroresLetras = 0;
+		erroresOraciones = 0;
+		erroresPalabras = 0;
+		erroresParrafos = 0;
 		puntajeFinal = 1000;
 
 		parrAudio = new AudioPlayer[2];
 		puntajeNiveles = new int[4];
+		formularioInt = 0;
 
 		for (int i = 0; i < 2; i++) {
 			parrAudio[i] = minim.loadFile("../data/Audio " + i + 1 + " Lento.mp3", 512);
@@ -271,31 +291,37 @@ public class Logica {
 		case 3:
 
 			app.image(planetas[0], x, y + 40);
-			setFuenteBold(48, 255);
-			app.textAlign(app.CENTER, app.CENTER);
-			app.text("Nivel 1", x, y - 250);
-
 			validarTiempo();
 			fadeIn();
 
+			if (mostrartexto) {
+				setFuenteBold(48, 255);
+				app.textAlign(app.CENTER, app.CENTER);
+				app.text("Nivel 1", x, y - 250);
+
+				setFuenteBold(80, 255);
+				app.textAlign(app.CENTER, app.CENTER);
+				app.text(letras.get(contadorItem - 1).getLetra(), x, y);
+
+				setFuenteBold(35, 255);
+				app.textAlign(app.CENTER, app.CENTER);
+				app.text(contadorItem + "/25", x + 500, y - 250);
+
+				setFuenteBold(35, 255);
+				app.textAlign(app.CENTER, app.CENTER);
+				app.image(botonError, 81, 98);
+				app.text(erroresLetras, 120, 98);
+				// app.text("PUNTAJE: " + puntajeFinal, x - 430, y - 250);
+			}
+
 			if (tareaTerminada) {
+				mostrartexto = false;
 				sigLetra();
+				mostrartexto = true;
 			}
 
 			if (tareaTerminadaMal) {
 			}
-
-			setFuenteBold(80, 255);
-			app.textAlign(app.CENTER, app.CENTER);
-			app.text(letras.get(contadorItem - 1).getLetra(), x, y);
-
-			setFuenteBold(35, 255);
-			app.textAlign(app.CENTER, app.CENTER);
-			app.text(contadorItem + "/25", x + 500, y - 250);
-			
-			setFuenteBold(35, 255);
-			app.textAlign(app.CENTER, app.CENTER);
-			app.text(puntajeFinal, x - 500, y - 250);
 
 			break;
 
@@ -305,17 +331,16 @@ public class Logica {
 			fadeInImg();
 			//
 
-			if (!animar) {
-				app.image(imgs[1], x, y);
-				imgPuntaje = 12;
-				app.image(puntaje[imgPuntaje], x, y - 130);
+			app.image(imgs[1], x, y);
+			imgPuntaje = 12;
+			app.image(puntaje[imgPuntaje], x, y - 130);
 
+			if (!animar) {
 				float tamArreglo = letras.size();
 				float puntajeNivel1 = puntajeNiveles[0];
 				int calcularPuntaje = (int) (app.map(puntajeNivel1, 0, tamArreglo, 1, 4));
 
 				System.out.println("El puntaje real es : " + puntajeNiveles[0] + " El puntaje es: " + calcularPuntaje);
-				;
 
 				switch (calcularPuntaje) {
 				case 1:
@@ -341,32 +366,37 @@ public class Logica {
 		case 5:
 			app.image(planetas[1], x, y + 40);
 			validarTiempo();
-			setFuenteBold(48, 255);
-			app.textAlign(app.CENTER, app.CENTER);
-			app.text("Nivel 2", x, y - 250);
 			fadeIn();
+			if (mostrartexto) {
 
-			setFuenteBold(48, 255);
-			app.textAlign(app.LEFT, app.LEFT);
-			app.text(palabras.get(contadorItem - 1).getPalabra(), x, y);
+				setFuenteBold(48, 255);
+				app.textAlign(app.CENTER, app.CENTER);
+				app.text("Nivel 2", x, y - 250);
 
-			app.textFont(dosisFuente, 48);
-			app.fill(255);
-			app.textAlign(app.LEFT, app.LEFT);
-			app.text(palabraEscrita, x, y);
+				setFuenteBold(48, 255);
+				app.textAlign(app.LEFT, app.LEFT);
+				app.text(palabras.get(contadorItem - 1).getPalabra(), x - 100, y);
 
-			setFuenteBold(35, 255);
-			app.textAlign(app.LEFT, app.LEFT);
-			app.text(contadorItem + "/20", x + 500, y - 250);
-			
-			setFuenteBold(35, 255);
-			app.textAlign(app.CENTER, app.CENTER);
-			app.text(puntajeFinal, x - 500, y - 250);
+				app.textFont(dosisFuente, 48);
+				app.fill(255, 132, 61);
+				app.textAlign(app.LEFT, app.LEFT);
+				app.text(palabraEscrita, x - 100, y);
+
+				app.textFont(dosisFuente, 48);
+				app.fill(255);
+				app.textAlign(app.LEFT, app.LEFT);
+				app.text(contadorItem + "/20", x + 500, y - 250);
+
+				setFuenteBold(35, 255);
+				app.textAlign(app.CENTER, app.CENTER);
+				app.image(botonError, 81, 98);
+				app.text(erroresPalabras, 120, 98);
+			}
 
 			if (tareaTerminadaPal) {
+				mostrartexto = false;
 				sigPalabra();
-			}
-			if (tareaTerminadaMalPal) {
+				mostrartexto = true;
 			}
 
 			break;
@@ -408,32 +438,38 @@ public class Logica {
 		case 7:
 			app.image(planetas[2], x - 10, y + 45);
 			validarTiempo();
-			setFuenteBold(48, 255);
-			app.textAlign(app.CENTER, app.CENTER);
-			app.text("Nivel 3", x, y - 250);
 			fadeIn();
 
-			setFuenteBold(48, 150);
-			app.textAlign(app.LEFT, app.LEFT);
-			app.text(oraciones.get(contadorItem - 1).getOracion(), x, y, 900, 300);
+			if (mostrartexto) {
+				setFuenteBold(48, 255);
+				app.textAlign(app.CENTER, app.CENTER);
+				app.text("Nivel 3", x, y - 250);
 
-			app.textFont(dosisFuente, 48);
-			app.fill(255);
-			app.textAlign(app.LEFT, app.LEFT);
-			app.text(oracionEscrita, x, y, 900, 300);
+				setFuenteBold(48, 150);
+				app.textAlign(app.LEFT, app.LEFT);
+				app.text(oraciones.get(contadorItem - 1).getOracion(), x -100, y+50, 900, 300);
 
-			setFuenteBold(35, 255);
-			app.textAlign(app.LEFT, app.LEFT);
-			app.text(contadorItem + "/4", 150, 200);
-			
-			setFuenteBold(35, 255);
-			app.textAlign(app.CENTER, app.CENTER);
-			app.text(puntajeFinal, x - 500, y - 250);
+				app.textFont(dosisFuente, 48);
+				app.fill(45, 164, 255);
+				app.textAlign(app.LEFT, app.LEFT);
+				app.text(oracionEscrita, x - 100, y+50, 900, 300);
+
+				app.textFont(dosisFuente, 48);
+				app.fill(255);
+				app.textAlign(app.LEFT, app.LEFT);
+				app.text(contadorItem + "/4", x + 500, y - 250);
+
+				setFuenteBold(35, 255);
+				app.textAlign(app.CENTER, app.CENTER);
+				app.image(botonError, 81, 98);
+				app.text(erroresOraciones, 120, 98);
+
+			}
 
 			if (tareaTerminadaOr) {
+				mostrartexto = false;
 				sigOracion();
-			}
-			if (tareaTerminadaMalOr) {
+				mostrartexto = true;
 			}
 
 			break;
@@ -443,8 +479,8 @@ public class Logica {
 			//
 			fadeInImg();
 			//
+			app.image(imgs[3], x, y);
 			if (!animar) {
-				app.image(imgs[3], x, y);
 				float tamArregloOr = oraciones.size();
 				float puntajeNivel3 = puntajeNiveles[2];
 				int calcularPuntajeOr = (int) (app.map(puntajeNivel3, 0, tamArregloOr, 1, 4));
@@ -476,24 +512,34 @@ public class Logica {
 		case 9:
 			app.image(planetas[3], x, y + 35);
 			validarTiempo();
-			setFuenteBold(48, 255);
-			app.textAlign(app.CENTER, app.CENTER);
-			app.text("Nivel 4", x, y - 250);
 			fadeIn();
 
-			setFuenteBold(35, 255);
-			app.textAlign(app.CENTER, app.CENTER);
-			app.text(contadorItem + "/2", x + 500, y - 250);
-			
-			setFuenteBold(35, 255);
-			app.textAlign(app.CENTER, app.CENTER);
-			app.text(puntajeFinal, x - 500, y - 250);
-			
-			if (tareaTerminadaParr) {
-				sigParrafo();
+			if (mostrartexto) {
+				setFuenteBold(48, 255);
+				app.textAlign(app.CENTER, app.CENTER);
+				app.text("Nivel 4", x, y - 250);
 
+				setFuenteBold(35, 255);
+				app.textAlign(app.CENTER, app.CENTER);
+				app.text(contadorItem + "/2", x + 500, y - 250);
+
+				app.textFont(dosisFuente, 48);
+				app.fill(255, 61, 99);
+				app.textAlign(app.LEFT, app.LEFT);
+				app.text(parrafoEscrito, x + 200, y +20, 600, 300);
+
+				setFuenteBold(35, 255);
+				app.textAlign(app.CENTER, app.CENTER);
+				app.image(botonError, 81, 98);
+				app.text(erroresParrafos, 120, 98);
+
+				app.image(soundbtn, 176, y);
 			}
-			if (tareaTerminadaMalParr) {
+
+			if (tareaTerminadaParr) {
+				mostrartexto = false;
+				sigParrafo();
+				mostrartexto = true;
 
 			}
 
@@ -506,11 +552,27 @@ public class Logica {
 			//
 			app.image(imgs[4], x, y);
 
+
+			app.textFont(dosisFuente, 35);
+			app.fill(255);
+			app.textAlign(app.CENTER, app.CENTER);
+			app.text("PUNTAJE FINAL: " + puntajeFinal, x, 211);
+			System.out.println("FINAAAAAAAAAAAAAAAAL");
 			break;
 		// formulario inicial
 		case 11:
 
-			app.image(formulario, x, y);
+			switch (formularioInt) {
+			case 0:
+				app.image(formularios[0], x, y);
+				break;
+			case 1:
+				app.image(formularios[1], x, y);
+				break;
+			case 2:
+				app.image(formularios[2], x, y);
+				break;
+			}
 
 			break;
 
@@ -550,16 +612,21 @@ public class Logica {
 			}
 			break;
 
+		case 16:
+
+			break;
+
 		}
 		if (nivel != 11 && nivel != 0) {
 			cp5.get("").hide();
 			cp5.get(" ").hide();
 			cp5.get("  ").hide();
 			cp5.get("   ").hide();
-			cp5.get("    ").hide();
 		}
 
-		generarBaseDeDatos();
+		if (nivel> 231) {
+			generarBaseDeDatos();
+		}
 
 	}
 
@@ -605,11 +672,12 @@ public class Logica {
 	public void mouse() {
 		// Cambiar pantalla
 		System.out.println("NIIIIIIIIIIIIIIIIIIIIIVAEEEEEEEEEEEEEL" + nivel);
-		System.out.println("ANIMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR" + animar);
 		if (nivel == 0) {
+			nivel = 11;
+
 			if (app.mouseX >= 521 && app.mouseX <= 683 && app.mouseY >= 389 && app.mouseY < 440) {
 				imgOpacidad = 0;
-				nivel = 11;
+
 				// Campo de Texto
 				int blanco = app.color(255);
 				int negro = app.color(60, 60, 59);
@@ -628,9 +696,6 @@ public class Logica {
 				cp5.addTextfield("   ").setPosition(334, 476).setSize(140, 24).setFont(dosisCampos).setColor(negro)
 						.setColorForeground(blanco).setColorBackground(blanco).setColorActive(blanco)
 						.setColorLabel(blanco);
-				cp5.addTextfield("    ").setPosition(527, 476).setSize(345, 24).setFont(dosisCampos).setColor(negro)
-						.setColorForeground(blanco).setColorBackground(blanco).setColorActive(blanco)
-						.setColorLabel(blanco);
 
 			}
 		} else if (nivel == 11) {
@@ -639,15 +704,52 @@ public class Logica {
 				nivel = 1;
 
 				nombre = cp5.get(Textfield.class, "").getText();
-				carrera = cp5.get(Textfield.class, " ").getText();
-				semestre = cp5.get(Textfield.class, "  ").getText();
+				ocupacion = cp5.get(Textfield.class, " ").getText();
+				carrera = cp5.get(Textfield.class, "  ").getText();
 				edad = cp5.get(Textfield.class, "   ").getText();
-				genero = cp5.get(Textfield.class, "    ").getText();
 
-				datosUsuario = "Usuario: " + nombre + " Semestre: " + semestre + " Carrera: " + carrera + " Edad: "
-						+ edad + " Genero: " + genero;
+				datosUsuario = "Usuario: " + nombre + "/ Ocupacion: " + ocupacion + "/ Carrera: " + carrera + "/ Edad: "
+						+ edad + "/ Genero: " + genero;
 				resultadosUsuario[0] = datosUsuario;
 			}
+
+			switch (formularioInt) {
+			case 0:
+				if (app.mouseX > 508 && app.mouseX < 683 && app.mouseY > 472 && app.mouseY < 505) {
+					genero = "Masculino";
+					formularioInt = 1;
+					System.out.println("FORMULARIO 1");
+				}
+				if (app.mouseX > 697 && app.mouseX < 880 && app.mouseY > 472 && app.mouseY < 505) {
+					genero = "Femenino";
+					formularioInt = 2;
+					System.out.println("FORMULARIO 2");
+				}
+				break;
+			case 1:
+				if (app.mouseX > 508 && app.mouseX < 683 && app.mouseY > 472 && app.mouseY < 505) {
+					genero = "";
+					formularioInt = 0;
+				}
+				if (app.mouseX > 697 && app.mouseX < 880 && app.mouseY > 472 && app.mouseY < 505) {
+					genero = "Femenino";
+					formularioInt = 2;
+
+				}
+				break;
+			case 2:
+				if (app.mouseX > 508 && app.mouseX < 683 && app.mouseY > 472 && app.mouseY < 505) {
+					genero = "Masculino";
+					formularioInt = 1;
+				}
+				if (app.mouseX > 697 && app.mouseX < 880 && app.mouseY > 472 && app.mouseY < 505) {
+					formularioInt = 0;
+					genero = "";
+				}
+				break;
+			}
+
+			// --------HERE------------
 		} else if (nivel == 1) {
 			if (app.mouseX > 508 && app.mouseX < 700 && app.mouseY > 585 && app.mouseY < 637) {
 				nivel = 2;
@@ -674,7 +776,6 @@ public class Logica {
 				opacidad = 0;
 				contadorItem = 1;
 				reiniciarTiempo();
-				animar = true;
 				nivel = 14;
 
 			}
@@ -684,7 +785,6 @@ public class Logica {
 				contadorItem = 1;
 				imgOpacidad = 0;
 				reiniciarTiempo();
-				animar = true;
 
 				nivel = 15;
 			}
@@ -724,7 +824,6 @@ public class Logica {
 
 	private void sigParrafo() {
 		System.out.println(tiempo);
-		reiniciarTiempo();
 		opacidad = 0;
 
 		app.image(emoji[frame], x, y);
@@ -734,19 +833,24 @@ public class Logica {
 			frame++;
 
 			if (frame == 11) {
-				reiniciarTiempo();
+				opacidad = 0;
 
 				if (contadorItem != 2) {
 					contadorItem++;
+
 				} else {
 					nivel++;
 					//
 					imgOpacidad = 0;
 					//
 				}
+
+				reiniciarTiempo();
 				frame = 0;
 				contadorGeneral++;
 				puntajeNiveles[3]++;
+				opacidad = 0;
+
 				tareaTerminadaParr = false;
 			}
 		}
@@ -776,19 +880,21 @@ public class Logica {
 
 				frame = 0;
 				contadorGeneral++;
+				opacidad = 0;
+
 				tareaTerminadaOr = false;
 			}
 		}
 	}
 
 	private void sigPalabra() {
-		opacidad = 0;
 
 		app.image(emoji[frame], x, y);
 
 		if (app.frameCount % 4 == 0) {
 
 			frame++;
+			opacidad = 0;
 
 			if (frame == 11) {
 				reiniciarTiempo();
@@ -805,14 +911,13 @@ public class Logica {
 				frame = 0;
 				contadorGeneral++;
 				puntajeNiveles[1]++;
-
+				opacidad = 0;
 				tareaTerminadaPal = false;
 			}
 		}
 	}
 
 	private void sigLetra() {
-		opacidad = 0;
 
 		app.image(emoji[frame], x, y);
 
@@ -825,14 +930,13 @@ public class Logica {
 					contadorItem++;
 				} else {
 					nivel++;
-					//
 					imgOpacidad = 0;
-					//
 				}
 
 				frame = 0;
 				contadorGeneral++;
 				puntajeNiveles[0]++;
+				opacidad = 0;
 				tareaTerminada = false;
 			}
 		}
@@ -850,21 +954,23 @@ public class Logica {
 			tareaTerminada = true;
 			acerto[contadorGeneral] = true;
 			audioBueno.trigger();
-			
+
 			letraEscrita = Character.toString(app.key);
-			resultadosUsuario[contadorGeneral] = "Letra correspondiente: " + letrasTemp[0] + " / cometió: " + erroresTempLetra + " errores / en este tiempo: " + tiempo;
-			
+			resultadosUsuario[contadorGeneral] = "Letra correspondiente: " + letrasTemp[0] + " / cometió: "
+					+ erroresTempLetra + " errores / en este tiempo: " + tiempo;
+
 			erroresTempLetra = 0;
 		} else if (letrasTemp[0] != letraOprimida) {
 			System.out.println(app.key + " es incorreto!");
 			acerto[contadorGeneral] = false;
 			audioMalo.trigger();
 			erroresTempLetra++;
+			erroresLetras++;
 			errores++;
-			puntajeFinal-=5;
+			puntajeFinal -= 5;
 			letraOprimida = ' ';
 		}
-		
+
 	}
 
 	public void validarPalabra() {
@@ -878,7 +984,8 @@ public class Logica {
 		} else {
 			errores++;
 			erroresTempPal++;
-			puntajeFinal-=5;
+			erroresPalabras++;
+			puntajeFinal -= 5;
 			System.out.println(app.key + " es diferente a " + palabraTemp[contadorInternoPal]);
 			audioMalo.trigger();
 		}
@@ -894,7 +1001,8 @@ public class Logica {
 				System.out.println("EQUALS!");
 				mostrarPalabra = palabraEscrita;
 				audioBueno.trigger();
-				resultadosUsuario[contadorGeneral] = "Palabra correspondiente: " + palabraTempString + " / cometió: " + erroresTempPal + " errores / en este tiempo: " + tiempo;
+				resultadosUsuario[contadorGeneral] = "Palabra correspondiente: " + palabraTempString + " / cometió: "
+						+ erroresTempPal + " errores / en este tiempo: " + tiempo;
 				palabraEscrita = "";
 				contadorInternoPal = 0;
 				erroresTempPal = 0;
@@ -905,7 +1013,7 @@ public class Logica {
 				tareaTerminadaMalPal = true;
 
 			}
-			
+
 		}
 
 	}
@@ -923,10 +1031,10 @@ public class Logica {
 			System.out.println(app.key + " es diferente a " + oracionTemp[contadorInternoOr]);
 			audioMalo.trigger();
 			errores++;
+			erroresOraciones++;
 			erroresTempOr++;
-			puntajeFinal-=5;
+			puntajeFinal -= 5;
 		}
-
 
 		for (int i = 0; i < oracionTemp.length; i++) {
 			System.out.println("El contador item es: " + contadorItem + " Oración temporal: " + oracionTemp[i]
@@ -937,19 +1045,20 @@ public class Logica {
 		if (contadorInternoOr == oracionTemp.length) {
 			if (oracionTempString.equals(oracionEscrita)) {
 				System.out.println("EQUALS!");
-				
-				resultadosUsuario[contadorGeneral] = "Oración correspondiente: " + oracionTempString + " / cometió: " + erroresTempOr + " errores / en este tiempo: "  + tiempo;
+
+				resultadosUsuario[contadorGeneral] = "Oración correspondiente: " + oracionTempString + " / cometió: "
+						+ erroresTempOr + " errores / en este tiempo: " + tiempo;
 				oracionEscrita = "";
 				contadorInternoOr = 0;
 				erroresTempPal = 0;
-				
+
 				tareaTerminadaOr = true;
 				audioBueno.trigger();
 			} else {
 				System.out.println("WRONG!");
-		
+
 			}
-			
+
 		}
 
 	}
@@ -968,9 +1077,9 @@ public class Logica {
 			audioMalo.trigger();
 			errores++;
 			erroresTempParr++;
-			puntajeFinal-=5;
+			erroresParrafos++;
+			puntajeFinal -= 5;
 		}
-
 
 		for (int i = 0; i < parrafoTemp.length; i++) {
 			System.out.println("El contador item es: " + contadorItem + " Parrafo temporal: " + parrafoTemp[i]
@@ -982,26 +1091,27 @@ public class Logica {
 			if (parrafoTempString.equals(parrafoEscrito)) {
 				System.out.println("EQUALS!");
 				audioBueno.trigger();
-				resultadosUsuario[contadorGeneral] = "Párrafo correspondiente: " + parrafoTempString + " / cometió: " + erroresTempParr + " errores / en este tiempo: " + "/ en este tiempo: " + tiempo;
+				resultadosUsuario[contadorGeneral] = "Párrafo correspondiente: " + parrafoTempString + " / cometió: "
+						+ erroresTempParr + " errores / en este tiempo: " + "/ en este tiempo: " + tiempo;
 				parrafoEscrito = "";
 				contadorInternoParr = 0;
 				tareaTerminadaParr = true;
 			} else {
 				System.out.println("WRONG!");
-	
+
 			}
 
 		}
 
 	}
-
+	
 	public void generarBaseDeDatos() {
 		BufferedWriter salida;
 		String textoFinal = app.join(resultadosUsuario, "\n");
 		// String txtNuevo = app.join(datosUsuario, " "); //Se crea el String que recibe
 		// el texto con las modificaciones y las une
 		try {
-			salida = new BufferedWriter(new FileWriter("data/resultados.txt"));
+			salida = new BufferedWriter(new FileWriter("data/resultados/resultados" + nombre + ".txt"));
 			salida.write(textoFinal); // Se escribe el String que contiene las modificaciones en el txt nuevo
 			salida.flush();
 			salida.close();
