@@ -467,12 +467,12 @@ public class Logica {
 
 				setFuenteBold(48, 150);
 				app.textAlign(app.LEFT, app.LEFT);
-				app.text(oraciones.get(contadorItem - 1).getOracion(), x + 200, y + 70, 900, 300);
+				app.text(oraciones.get(contadorItem - 1).getOracion(), x - 150, y + 70, 900, 300);
 
 				app.textFont(dosisFuente, 48);
 				app.fill(45, 164, 255);
 				app.textAlign(app.LEFT, app.LEFT);
-				app.text(oracionEscrita, x + 200, y + 70, 900, 300);
+				app.text(oracionEscrita, x - 150 , y + 70, 900, 300);
 
 				app.textFont(dosisFuente, 35);
 				app.fill(255);
