@@ -14,6 +14,22 @@ import processing.core.PImage;
 
 public class Logica {
 
+	/*
+	 * HOLAAAAA, 
+	 * Para ocultar los errores, cambiar a false el boolean mostarErrores
+	 * el cual se encuentra AQUI ABAJO
+	 * 
+	 * 
+	 * 
+	 */
+	private boolean mostrarErrores = true;
+	
+	/*
+	 * 
+	 * 
+	 * 
+	 */
+	
 	private PApplet app;
 	private Timer t;
 	private String tiempo;
@@ -55,7 +71,7 @@ public class Logica {
 	private char[] parrafoTemp;
 	private String letraEscrita;
 	private boolean animar;
-
+	
 	private int[] puntajeNiveles;
 	private PImage puntaje[], soundbtn, formularios[];
 
@@ -307,11 +323,13 @@ public class Logica {
 				app.textAlign(app.CENTER, app.CENTER);
 				app.text(contadorItem + "/25", x + 500, y - 250);
 
+				if(mostrarErrores) {
 				setFuenteBold(35, 255);
 				app.textAlign(app.CENTER, app.CENTER);
 				app.image(botonError, 81, 98);
 				app.text(erroresLetras, 120, 98);
 				// app.text("PUNTAJE: " + puntajeFinal, x - 430, y - 250);
+				}
 			}
 
 			if (tareaTerminada) {
@@ -333,7 +351,7 @@ public class Logica {
 
 			app.image(imgs[1], x, y);
 			imgPuntaje = 12;
-			app.image(puntaje[imgPuntaje], x, y - 130);
+			// app.image(puntaje[imgPuntaje], x, y - 130);
 
 			if (!animar) {
 				float tamArreglo = letras.size();
@@ -382,15 +400,17 @@ public class Logica {
 				app.textAlign(app.LEFT, app.LEFT);
 				app.text(palabraEscrita, x - 100, y);
 
-				app.textFont(dosisFuente, 48);
+				app.textFont(dosisFuente, 35);
 				app.fill(255);
 				app.textAlign(app.LEFT, app.LEFT);
 				app.text(contadorItem + "/20", x + 500, y - 250);
 
+				if(mostrarErrores) {
 				setFuenteBold(35, 255);
 				app.textAlign(app.CENTER, app.CENTER);
 				app.image(botonError, 81, 98);
 				app.text(erroresPalabras, 120, 98);
+				}
 			}
 
 			if (tareaTerminadaPal) {
@@ -447,23 +467,24 @@ public class Logica {
 
 				setFuenteBold(48, 150);
 				app.textAlign(app.LEFT, app.LEFT);
-				app.text(oraciones.get(contadorItem - 1).getOracion(), x -100, y+50, 900, 300);
+				app.text(oraciones.get(contadorItem - 1).getOracion(), x + 200, y + 70, 900, 300);
 
 				app.textFont(dosisFuente, 48);
 				app.fill(45, 164, 255);
 				app.textAlign(app.LEFT, app.LEFT);
-				app.text(oracionEscrita, x - 100, y+50, 900, 300);
+				app.text(oracionEscrita, x + 200, y + 70, 900, 300);
 
-				app.textFont(dosisFuente, 48);
+				app.textFont(dosisFuente, 35);
 				app.fill(255);
 				app.textAlign(app.LEFT, app.LEFT);
 				app.text(contadorItem + "/4", x + 500, y - 250);
 
+				if(mostrarErrores) {
 				setFuenteBold(35, 255);
 				app.textAlign(app.CENTER, app.CENTER);
 				app.image(botonError, 81, 98);
 				app.text(erroresOraciones, 120, 98);
-
+				}
 			}
 
 			if (tareaTerminadaOr) {
@@ -519,6 +540,10 @@ public class Logica {
 				app.textAlign(app.CENTER, app.CENTER);
 				app.text("Nivel 4", x, y - 250);
 
+				setFuenteBold(31, 255);
+				app.textAlign(app.CENTER, app.CENTER);
+				app.text("Para escuchar el audio, da click sobre el icono de parlante", x, y - 180);
+				
 				setFuenteBold(35, 255);
 				app.textAlign(app.CENTER, app.CENTER);
 				app.text(contadorItem + "/2", x + 500, y - 250);
@@ -526,14 +551,16 @@ public class Logica {
 				app.textFont(dosisFuente, 48);
 				app.fill(255, 61, 99);
 				app.textAlign(app.LEFT, app.LEFT);
-				app.text(parrafoEscrito, x + 200, y +20, 600, 300);
+				app.text(parrafoEscrito, x + 200, y + 45, 600, 300);
 
+				if(mostrarErrores) {
 				setFuenteBold(35, 255);
 				app.textAlign(app.CENTER, app.CENTER);
 				app.image(botonError, 81, 98);
 				app.text(erroresParrafos, 120, 98);
-
-				app.image(soundbtn, 176, y);
+				}
+				
+				app.image(soundbtn, 176+100, y);
 			}
 
 			if (tareaTerminadaParr) {
@@ -551,7 +578,6 @@ public class Logica {
 			fadeInImg();
 			//
 			app.image(imgs[4], x, y);
-
 
 			app.textFont(dosisFuente, 35);
 			app.fill(255);
@@ -624,9 +650,7 @@ public class Logica {
 			cp5.get("   ").hide();
 		}
 
-		if (nivel> 231) {
-			generarBaseDeDatos();
-		}
+		generarBaseDeDatos();
 
 	}
 
@@ -800,7 +824,10 @@ public class Logica {
 	}
 
 	public void teclas() {
-
+		
+		if (app.key == 8) {
+			return;
+		}
 		if (nivel == 3) {
 
 			if (app.key == app.ENTER) {
@@ -1091,7 +1118,7 @@ public class Logica {
 			if (parrafoTempString.equals(parrafoEscrito)) {
 				System.out.println("EQUALS!");
 				audioBueno.trigger();
-				resultadosUsuario[contadorGeneral] = "Párrafo correspondiente: " + parrafoTempString + " / cometió: "
+				resultadosUsuario[contadorGeneral] = "Parrafo correspondiente: " + parrafoTempString + " / cometio: "
 						+ erroresTempParr + " errores / en este tiempo: " + "/ en este tiempo: " + tiempo;
 				parrafoEscrito = "";
 				contadorInternoParr = 0;
@@ -1104,14 +1131,14 @@ public class Logica {
 		}
 
 	}
-	
+
 	public void generarBaseDeDatos() {
 		BufferedWriter salida;
 		String textoFinal = app.join(resultadosUsuario, "\n");
 		// String txtNuevo = app.join(datosUsuario, " "); //Se crea el String que recibe
 		// el texto con las modificaciones y las une
 		try {
-			salida = new BufferedWriter(new FileWriter("data/resultados/resultados" + nombre + ".txt"));
+			salida = new BufferedWriter(new FileWriter("resultados.txt"));
 			salida.write(textoFinal); // Se escribe el String que contiene las modificaciones en el txt nuevo
 			salida.flush();
 			salida.close();
