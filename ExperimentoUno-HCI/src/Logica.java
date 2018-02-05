@@ -200,8 +200,8 @@ public class Logica {
 		minim = new Minim(app);
 		audioBueno = minim.loadSample("../data/Bueno.mp3", 512);
 		audioMalo = minim.loadSample("../data/Malo.mp3", 512);
-		parr1 = minim.loadSample("../data/Audio 1 Lento.mp3", 512);
-		parr2 = minim.loadSample("../data/Audio 2 Lento.mp3", 512);
+		_parr1 = minim.loadFile("../data/Audio 1 Lento.mp3",512);
+		_parr2 = minim.loadFile("../data/Audio 2 Lento.mp3", 512);
 		errores = 0;
 		erroresTempLetra = 0;
 		erroresTempOr = 0;
@@ -468,12 +468,12 @@ public class Logica {
 				
 				setFuenteBold(48, 150);
 				app.textAlign(app.LEFT, app.LEFT);
-				app.text(oraciones.get(contadorItem - 1).getOracion(), x - 150, y + 70, 900, 300);
+				app.text(oraciones.get(contadorItem - 1).getOracion(), x - 50, y + 70, 900, 300);
 
 				app.textFont(dosisFuente, 48);
 				app.fill(45, 164, 255);
 				app.textAlign(app.LEFT, app.LEFT);
-				app.text(oracionEscrita, x - 150 , y + 70, 900, 300);
+				app.text(oracionEscrita, x - 50 , y + 70, 900, 300);
 
 				app.textFont(dosisFuente, 35);
 				app.fill(255);
@@ -610,6 +610,7 @@ public class Logica {
 			if (app.frameCount % 5 == 0) {
 				frame4++;
 				if (frame4 == 22) {
+					reiniciarTiempo();
 					nivel = 5;
 					animar = false;
 
@@ -684,7 +685,7 @@ public class Logica {
 	public void validarTiempo() {
 		millis = t.millis();
 		segundos = t.second();
-		tiempo = segundos + ":" + millis;
+		tiempo = segundos + "," + millis;
 		setFuenteRegular(21, 255);
 		app.textAlign(app.LEFT, app.LEFT);
 		app.text(tiempo, 1100, 650);
@@ -810,17 +811,19 @@ public class Logica {
 				contadorItem = 1;
 				imgOpacidad = 0;
 				reiniciarTiempo();
-
 				nivel = 15;
 			}
 		} else if (nivel == 9) {
 			if (contadorItem == 1) {
-				parr1.trigger();
+				_parr1.play();
+				reiniciarTiempo();
 
 			} else {
-				parr2.trigger();
-
+				_parr2.play();
+				reiniciarTiempo();
 			}
+		} else if (nivel==10) {
+			app.exit();
 		}
 	}
 
@@ -909,7 +912,6 @@ public class Logica {
 				frame = 0;
 				contadorGeneral++;
 				opacidad = 0;
-
 				tareaTerminadaOr = false;
 			}
 		}
