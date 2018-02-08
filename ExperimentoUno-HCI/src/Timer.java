@@ -35,7 +35,7 @@ public class Timer extends Thread {
 	 * Devuelve los milisegundos reproducidos
 	 */
 	int millis() {
-		return tiempoReproducido();
+		return tiempoReproducido() - second() * 1000;
 	}
 	
 	/*
