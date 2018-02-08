@@ -70,7 +70,7 @@ public class Logica {
 	private char[] oracionTemp;
 	private char[] parrafoTemp;
 	private String letraEscrita;
-	private boolean animar;
+	private boolean animar, isPlayingSong, tiempoN4;
 	
 	private int[] puntajeNiveles;
 	private PImage puntaje[], soundbtn, formularios[];
@@ -167,7 +167,9 @@ public class Logica {
 	}
 
 	private void inicializarVars() {
+		isPlayingSong = false;
 		mostrartexto = true;
+		tiempoN4 = false;
 		animar = false;
 		tareaTerminada = false;
 		tareaTerminadaMal = false;
@@ -202,6 +204,8 @@ public class Logica {
 		audioMalo = minim.loadSample("../data/Malo.mp3", 512);
 		_parr1 = minim.loadFile("../data/Audio 1 Lento.mp3",512);
 		_parr2 = minim.loadFile("../data/Audio 2 Lento.mp3", 512);
+		parr1 = minim.loadSample("../data/Audio 1 Lento.mp3",512);
+		parr2 = minim.loadSample("../data/Audio 2 Lento.mp3", 512);
 		errores = 0;
 		erroresTempLetra = 0;
 		erroresTempOr = 0;
@@ -398,7 +402,7 @@ public class Logica {
 				app.textFont(dosisFuente, 48);
 				app.fill(255, 132, 61);
 				app.textAlign(app.LEFT, app.LEFT);
-				app.text(palabraEscrita, x - 100, y);
+				app.text(palabraEscrita  + "_", x - 100, y);
 
 				app.textFont(dosisFuente, 35);
 				app.fill(255);
@@ -473,7 +477,7 @@ public class Logica {
 				app.textFont(dosisFuente, 48);
 				app.fill(45, 164, 255);
 				app.textAlign(app.LEFT, app.LEFT);
-				app.text(oracionEscrita, x - 50 , y + 70, 900, 300);
+				app.text(oracionEscrita  + "_", x - 50 , y + 70, 900, 300);
 
 				app.textFont(dosisFuente, 35);
 				app.fill(255);
@@ -552,7 +556,7 @@ public class Logica {
 				app.textFont(dosisFuente, 48);
 				app.fill(255, 61, 99);
 				app.textAlign(app.LEFT, app.LEFT);
-				app.text(parrafoEscrito, x + 200, y + 45, 600, 300);
+				app.text(parrafoEscrito + "_", x + 200, y + 45, 600, 300);
 
 				if(mostrarErrores) {
 				setFuenteBold(35, 255);
@@ -815,17 +819,60 @@ public class Logica {
 			}
 		} else if (nivel == 9) {
 			if (contadorItem == 1) {
-				_parr1.play();
-				reiniciarTiempo();
+
+				if (!tiempoN4) {
+					reiniciarTiempo();
+				}
+				if(!isPlayingSong) {
+					parr1.trigger();
+					tiempoN4 = true;
+					comenzarTiempo();
+				}
+				
 
 			} else {
-				_parr2.play();
-				reiniciarTiempo();
+
+				if (!tiempoN4) {
+					reiniciarTiempo();
+				}
+				if(!isPlayingSong) {
+					parr2.trigger();
+					comenzarTiempo();
+					tiempoN4 = true;
+				}
+				
+			
 			}
 		} else if (nivel==10) {
 			app.exit();
 		}
 	}
+
+	private void comenzarTiempo() {
+		
+		Thread t = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+            		
+                try {
+                	
+                isPlayingSong = true;        
+                Thread.sleep(12000);
+                isPlayingSong = false;
+                
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+
+            }
+
+        });
+        t.start();
+    }
+		
+	
 
 	public void teclas() {
 		
@@ -856,6 +903,8 @@ public class Logica {
 	private void sigParrafo() {
 		System.out.println(tiempo);
 		opacidad = 0;
+		app.image(imgs[0], x, y);
+		app.image(planetas[3], x, y + 35);
 
 		app.image(emoji[frame], x, y);
 
@@ -868,6 +917,7 @@ public class Logica {
 
 				if (contadorItem != 2) {
 					contadorItem++;
+					//tiempoN4 = false;
 
 				} else {
 					nivel++;
@@ -890,6 +940,9 @@ public class Logica {
 	private void sigOracion() {
 		System.out.println(tiempo);
 		opacidad = 0;
+		app.image(imgs[0], x, y);
+		app.image(planetas[2], x, y + 35);
+
 
 		app.image(emoji[frame], x, y);
 
@@ -918,6 +971,8 @@ public class Logica {
 	}
 
 	private void sigPalabra() {
+		app.image(imgs[0], x, y);
+		app.image(planetas[1], x, y + 35);
 
 		app.image(emoji[frame], x, y);
 
@@ -948,6 +1003,8 @@ public class Logica {
 	}
 
 	private void sigLetra() {
+		app.image(imgs[0], x, y);
+		app.image(planetas[0], x, y + 35);
 
 		app.image(emoji[frame], x, y);
 

@@ -1,52 +1,52 @@
 Usuario: / Ocupacion: / Carrera: / Edad: / Genero: null
-Letra correspondiente: f / cometió: 0 errores / en este tiempo: 7,7447
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
+Letra correspondiente: f / cometió: 0 errores / en este tiempo: 1,1089
+Letra correspondiente: p / cometió: 0 errores / en este tiempo: 2,2119
+Letra correspondiente: q / cometió: 1 errores / en este tiempo: 1,1388
+Letra correspondiente: n / cometió: 0 errores / en este tiempo: 1,1031
+Letra correspondiente: v / cometió: 0 errores / en este tiempo: 1,1066
+Letra correspondiente: s / cometió: 0 errores / en este tiempo: 2,2475
+Letra correspondiente: y / cometió: 0 errores / en este tiempo: 1,1029
+Letra correspondiente: m / cometió: 0 errores / en este tiempo: 4,4994
+Letra correspondiente: a / cometió: 0 errores / en este tiempo: 1,1547
+Letra correspondiente: r / cometió: 0 errores / en este tiempo: 1,1424
+Letra correspondiente: k / cometió: 0 errores / en este tiempo: 1,1495
+Letra correspondiente: x / cometió: 0 errores / en este tiempo: 1,1334
+Letra correspondiente: t / cometió: 0 errores / en este tiempo: 1,1370
+Letra correspondiente: i / cometió: 0 errores / en este tiempo: 0,888
+Letra correspondiente: z / cometió: 0 errores / en este tiempo: 1,1084
+Letra correspondiente: ñ / cometió: 0 errores / en este tiempo: 1,1263
+Letra correspondiente: h / cometió: 0 errores / en este tiempo: 1,1048
+Letra correspondiente: w / cometió: 0 errores / en este tiempo: 1,1049
+Letra correspondiente: o / cometió: 0 errores / en este tiempo: 0,960
+Letra correspondiente: g / cometió: 0 errores / en este tiempo: 1,1102
+Letra correspondiente: e / cometió: 0 errores / en este tiempo: 1,1370
+Letra correspondiente: b / cometió: 0 errores / en este tiempo: 0,922
+Letra correspondiente: u / cometió: 0 errores / en este tiempo: 1,1013
+Letra correspondiente: d / cometió: 0 errores / en este tiempo: 1,1102
+Letra correspondiente: j / cometió: 0 errores / en este tiempo: 1,1173
+Palabra correspondiente: flor / cometió: 0 errores / en este tiempo: 10,10428
+Palabra correspondiente: vivir / cometió: 0 errores / en este tiempo: 1,1837
+Palabra correspondiente: reir / cometió: 0 errores / en este tiempo: 1,1405
+Palabra correspondiente: rosa / cometió: 0 errores / en este tiempo: 1,1352
+Palabra correspondiente: zorro / cometió: 0 errores / en este tiempo: 1,1906
+Palabra correspondiente: cielo / cometió: 0 errores / en este tiempo: 2,2226
+Palabra correspondiente: sueño / cometió: 0 errores / en este tiempo: 1,1567
+Palabra correspondiente: amigo / cometió: 3 errores / en este tiempo: 3,3120
+Palabra correspondiente: tiempo / cometió: 0 errores / en este tiempo: 2,2162
+Palabra correspondiente: planeta / cometió: 0 errores / en este tiempo: 2,2083
+Palabra correspondiente: esencial / cometió: 0 errores / en este tiempo: 2,2298
+Palabra correspondiente: alegria / cometió: 0 errores / en este tiempo: 2,2458
+Palabra correspondiente: realizar / cometió: 0 errores / en este tiempo: 2,2226
+Palabra correspondiente: misterio / cometió: 2 errores / en este tiempo: 4,4227
+Palabra correspondiente: principito / cometió: 1 errores / en este tiempo: 3,3243
+Palabra correspondiente: privilegio / cometió: 0 errores / en este tiempo: 4,4244
+Palabra correspondiente: sabiduria / cometió: 0 errores / en este tiempo: 2,2724
+Palabra correspondiente: fastidioso / cometió: 1 errores / en este tiempo: 4,4422
+Palabra correspondiente: astronomia / cometió: 0 errores / en este tiempo: 2,2496
+Palabra correspondiente: tranquilamente / cometió: 0 errores / en este tiempo: 2,2798
+Oración correspondiente: fue el tiempo que pasaste con tu rosa lo que la hizo tan importante / cometió: 10 errores / en este tiempo: 20,20338
+Oración correspondiente: el se enamora de sus flores y no de sus raices y en otoño no supo que hacer / cometió: 16 errores / en este tiempo: 17,17736
+Oración correspondiente: cuando el misterio es demasiado impresionante es imposible desobedecer / cometió: 20 errores / en este tiempo: 21,21689
+Oración correspondiente: yo puedo juzgarme a mi mismo en cualquier parte y no tengo necesidad de vivir aqui / cometió: 27 errores / en este tiempo: 22,22508
+Parrafo correspondiente: lo esencial es invisible a los ojos repitio el principito para acordarse / cometio: 9 errores / en este tiempo: / en este tiempo: 24,24743
+Parrafo correspondiente: me pregunto si las estrellas se iluminan con el fin de que algun dia cada uno pueda encontrar la suya / cometio: 25 errores / en este tiempo: / en este tiempo: 39,39780
