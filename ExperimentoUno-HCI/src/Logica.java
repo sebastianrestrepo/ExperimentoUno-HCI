@@ -941,7 +941,7 @@ public class Logica {
 		System.out.println(tiempo);
 		opacidad = 0;
 		app.image(imgs[0], x, y);
-		app.image(planetas[2], x, y + 35);
+		app.image(planetas[2], x - 10, y + 45);
 
 
 		app.image(emoji[frame], x, y);
@@ -972,7 +972,7 @@ public class Logica {
 
 	private void sigPalabra() {
 		app.image(imgs[0], x, y);
-		app.image(planetas[1], x, y + 35);
+		app.image(planetas[1], x, y + 40);
 
 		app.image(emoji[frame], x, y);
 
@@ -1003,7 +1003,7 @@ public class Logica {
 	}
 
 	private void sigLetra() {
-		app.image(imgs[0], x, y);
+		app.image(planetas[0], x, y + 40);
 		app.image(planetas[0], x, y + 35);
 
 		app.image(emoji[frame], x, y);
