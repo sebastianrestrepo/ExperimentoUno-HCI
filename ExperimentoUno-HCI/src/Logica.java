@@ -472,12 +472,12 @@ public class Logica {
 				
 				setFuenteBold(48, 150);
 				app.textAlign(app.LEFT, app.LEFT);
-				app.text(oraciones.get(contadorItem - 1).getOracion(), x - 50, y + 70, 900, 300);
+				app.text(oraciones.get(contadorItem - 1).getOracion(), x - 30, y + 70, 1000, 300);
 
 				app.textFont(dosisFuente, 48);
 				app.fill(45, 164, 255);
 				app.textAlign(app.LEFT, app.LEFT);
-				app.text(oracionEscrita  + "_", x - 50 , y + 70, 900, 300);
+				app.text(oracionEscrita  + "_", x - 30 , y + 70, 1000, 300);
 
 				app.textFont(dosisFuente, 35);
 				app.fill(255);
@@ -700,6 +700,7 @@ public class Logica {
 	}
 
 	public void mouse() {
+
 		// Cambiar pantalla
 		System.out.println("NIIIIIIIIIIIIIIIIIIIIIVAEEEEEEEEEEEEEL" + nivel);
 		if (nivel == 0) {
@@ -830,7 +831,7 @@ public class Logica {
 				}
 				
 
-			} else {
+			} else if (contadorItem == 2){
 
 				if (!tiempoN4) {
 					reiniciarTiempo();
@@ -917,7 +918,7 @@ public class Logica {
 
 				if (contadorItem != 2) {
 					contadorItem++;
-					//tiempoN4 = false;
+					tiempoN4 = false;
 
 				} else {
 					nivel++;

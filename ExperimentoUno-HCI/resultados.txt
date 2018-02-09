@@ -1,4 +1,4 @@
-null
+Usuario: / Ocupacion: / Carrera: / Edad: / Genero: null
 null
 null
 null
