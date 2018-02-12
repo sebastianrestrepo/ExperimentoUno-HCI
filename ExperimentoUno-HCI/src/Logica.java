@@ -739,8 +739,8 @@ public class Logica {
 				carrera = cp5.get(Textfield.class, "  ").getText();
 				edad = cp5.get(Textfield.class, "   ").getText();
 
-				datosUsuario = "Usuario: " + nombre + "/ Ocupacion: " + ocupacion + "/ Carrera: " + carrera + "/ Edad: "
-						+ edad + "/ Genero: " + genero;
+				datosUsuario = "Usuario: " + nombre + "\nOcupacion: " + ocupacion + "\nCarrera: " + carrera + "\nEdad: "
+						+ edad + "\nGenero: " + genero + "\n\n";
 				resultadosUsuario[0] = datosUsuario;
 			}
 
@@ -1044,11 +1044,22 @@ public class Logica {
 			audioBueno.trigger();
 
 			letraEscrita = Character.toString(app.key);
-			resultadosUsuario[contadorGeneral] = "Letra correspondiente: " + letrasTemp[0] + " / cometió: "
-					+ erroresTempLetra + " errores / en este tiempo: " + tiempo;
+			resultadosUsuario[contadorGeneral] = letrasTemp[0] + "\t"
+					+ erroresTempLetra + "\t" + tiempo + "\n";
 
 			erroresTempLetra = 0;
-		} else if (letrasTemp[0] != letraOprimida) {
+		} else if(Character.toUpperCase(letrasTemp[0]) == letraOprimida) {
+			System.out.println(app.key + " es correto!");
+			tareaTerminada = true;
+			acerto[contadorGeneral] = true;
+			audioBueno.trigger();
+
+			letraEscrita = Character.toString(app.key);
+			resultadosUsuario[contadorGeneral] = letrasTemp[0] + "\t"
+					+ erroresTempLetra + "\t" + tiempo + "\n";
+
+			erroresTempLetra = 0;
+		}  else if (letrasTemp[0] != letraOprimida) {
 			System.out.println(app.key + " es incorreto!");
 			acerto[contadorGeneral] = false;
 			audioMalo.trigger();
@@ -1069,6 +1080,10 @@ public class Logica {
 			System.out.println(app.key + " es igual a " + palabraTemp[contadorInternoPal]);
 			palabraEscrita = palabraEscrita + app.key;
 			contadorInternoPal++;
+		} else if (Character.toUpperCase(palabraTemp[contadorInternoPal]) == app.key) {
+			System.out.println(app.key + " es igual a " + palabraTemp[contadorInternoPal]);
+			palabraEscrita = palabraEscrita + Character.toLowerCase(app.key);
+			contadorInternoPal++;
 		} else {
 			errores++;
 			erroresTempPal++;
@@ -1085,12 +1100,12 @@ public class Logica {
 		}
 
 		if (contadorInternoPal == palabraTemp.length) {
-			if (palabraTempString.equals(palabraEscrita)) {
+			if (palabraTempString.equalsIgnoreCase(palabraEscrita)) {
 				System.out.println("EQUALS!");
 				mostrarPalabra = palabraEscrita;
 				audioBueno.trigger();
-				resultadosUsuario[contadorGeneral] = "Palabra correspondiente: " + palabraTempString + " / cometió: "
-						+ erroresTempPal + " errores / en este tiempo: " + tiempo;
+				resultadosUsuario[contadorGeneral] = palabraTempString + "\t"
+						+ erroresTempPal + "\t" + tiempo + "\n";
 				palabraEscrita = "";
 				contadorInternoPal = 0;
 				erroresTempPal = 0;
@@ -1115,6 +1130,10 @@ public class Logica {
 			System.out.println(app.key + " es igual a " + oracionTemp[contadorInternoOr]);
 			oracionEscrita = oracionEscrita + app.key;
 			contadorInternoOr++;
+		} else if (Character.toUpperCase(oracionTemp[contadorInternoOr]) == app.key) {
+			System.out.println(app.key + " es igual a " + oracionTemp[contadorInternoOr]);
+			oracionEscrita = oracionEscrita + Character.toLowerCase(app.key);
+			contadorInternoOr++;
 		} else {
 			System.out.println(app.key + " es diferente a " + oracionTemp[contadorInternoOr]);
 			audioMalo.trigger();
@@ -1131,11 +1150,11 @@ public class Logica {
 		}
 
 		if (contadorInternoOr == oracionTemp.length) {
-			if (oracionTempString.equals(oracionEscrita)) {
+			if (oracionTempString.equalsIgnoreCase(oracionEscrita)) {
 				System.out.println("EQUALS!");
 
-				resultadosUsuario[contadorGeneral] = "Oración correspondiente: " + oracionTempString + " / cometió: "
-						+ erroresTempOr + " errores / en este tiempo: " + tiempo;
+				resultadosUsuario[contadorGeneral] = oracionTempString + "\t"
+						+ erroresTempOr + "\t" + tiempo + "\n";
 				oracionEscrita = "";
 				contadorInternoOr = 0;
 				erroresTempPal = 0;
@@ -1160,6 +1179,10 @@ public class Logica {
 			System.out.println(app.key + " es igual a " + parrafoTemp[contadorInternoParr]);
 			parrafoEscrito = parrafoEscrito + app.key;
 			contadorInternoParr++;
+		} else if(Character.toUpperCase(parrafoTemp[contadorInternoParr]) == app.key){
+			System.out.println(app.key + " es igual a " + parrafoTemp[contadorInternoParr]);
+			parrafoEscrito = parrafoEscrito + Character.toLowerCase(app.key);
+			contadorInternoParr++;
 		} else {
 			System.out.println(app.key + " es diferente a " + parrafoTemp[contadorInternoParr]);
 			audioMalo.trigger();
@@ -1176,11 +1199,11 @@ public class Logica {
 		}
 
 		if (contadorInternoParr == parrafoTemp.length) {
-			if (parrafoTempString.equals(parrafoEscrito)) {
+			if (parrafoTempString.equalsIgnoreCase(parrafoEscrito)) {
 				System.out.println("EQUALS!");
 				audioBueno.trigger();
-				resultadosUsuario[contadorGeneral] = "Parrafo correspondiente: " + parrafoTempString + " / cometio: "
-						+ erroresTempParr + " errores / en este tiempo: " + "/ en este tiempo: " + tiempo;
+				resultadosUsuario[contadorGeneral] = parrafoTempString + "\t"
+						+ erroresTempParr + "\t" + tiempo + "\n";
 				parrafoEscrito = "";
 				contadorInternoParr = 0;
 				tareaTerminadaParr = true;
@@ -1195,7 +1218,7 @@ public class Logica {
 
 	public void generarBaseDeDatos() {
 		BufferedWriter salida;
-		String textoFinal = app.join(resultadosUsuario, "\n");
+		String textoFinal = app.join(resultadosUsuario, "");
 		// String txtNuevo = app.join(datosUsuario, " "); //Se crea el String que recibe
 		// el texto con las modificaciones y las une
 		try {
