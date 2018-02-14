@@ -1,9 +1,1 @@
-Usuario: Oskarfh
-Ocupacion: fhsh
-Carrera: hs
-Edad: 19
-Genero: Masculino
 
-f	0	0,2,143
-p	0	2,1,522
-nullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnull
