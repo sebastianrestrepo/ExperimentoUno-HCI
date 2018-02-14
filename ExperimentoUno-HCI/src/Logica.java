@@ -33,7 +33,7 @@ public class Logica {
 	private PApplet app;
 	private Timer t;
 	private String tiempo;
-	private int millis, segundos, nivel;
+	private int millis, segundos, nivel, minutos;
 	private boolean tareaTerminada, tareaTerminadaMal, tareaTerminadaPal, tareaTerminadaMalPal, tareaTerminadaOr,
 			tareaTerminadaMalOr, tareaTerminadaParr, tareaTerminadaMalParr;
 	private AudioSample audioBueno, audioMalo, parr1, parr2;
@@ -689,7 +689,8 @@ public class Logica {
 	public void validarTiempo() {
 		millis = t.millis();
 		segundos = t.second();
-		tiempo = segundos + "," + millis;
+		minutos = t.minute();
+		tiempo = minutos + "," + segundos + "," + millis;
 		setFuenteRegular(21, 255);
 		app.textAlign(app.LEFT, app.LEFT);
 		app.text(tiempo, 1100, 650);
@@ -1056,7 +1057,7 @@ public class Logica {
 
 			letraEscrita = Character.toString(app.key);
 			resultadosUsuario[contadorGeneral] = letrasTemp[0] + "\t"
-					+ erroresTempLetra + "\t" + tiempo + "\n";
+					+ tiempo  + "\t" + erroresTempLetra + "\n";
 
 			erroresTempLetra = 0;
 		}  else if (letrasTemp[0] != letraOprimida) {
@@ -1105,7 +1106,7 @@ public class Logica {
 				mostrarPalabra = palabraEscrita;
 				audioBueno.trigger();
 				resultadosUsuario[contadorGeneral] = palabraTempString + "\t"
-						+ erroresTempPal + "\t" + tiempo + "\n";
+						+ tiempo + "\t" +  erroresTempPal + "\n";
 				palabraEscrita = "";
 				contadorInternoPal = 0;
 				erroresTempPal = 0;
@@ -1154,7 +1155,7 @@ public class Logica {
 				System.out.println("EQUALS!");
 
 				resultadosUsuario[contadorGeneral] = oracionTempString + "\t"
-						+ erroresTempOr + "\t" + tiempo + "\n";
+						+ tiempo + "\t" + erroresTempOr + "\n";
 				oracionEscrita = "";
 				contadorInternoOr = 0;
 				erroresTempPal = 0;
@@ -1203,7 +1204,7 @@ public class Logica {
 				System.out.println("EQUALS!");
 				audioBueno.trigger();
 				resultadosUsuario[contadorGeneral] = parrafoTempString + "\t"
-						+ erroresTempParr + "\t" + tiempo + "\n";
+						+ tiempo + "\t" + erroresTempParr + "\n";
 				parrafoEscrito = "";
 				contadorInternoParr = 0;
 				tareaTerminadaParr = true;
