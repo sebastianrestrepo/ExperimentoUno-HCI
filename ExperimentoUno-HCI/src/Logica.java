@@ -1158,7 +1158,7 @@ public class Logica {
 						+ tiempo + "\t" + erroresTempOr + "\n";
 				oracionEscrita = "";
 				contadorInternoOr = 0;
-				erroresTempPal = 0;
+				erroresTempOr = 0;
 
 				tareaTerminadaOr = true;
 				audioBueno.trigger();
@@ -1207,6 +1207,7 @@ public class Logica {
 						+ tiempo + "\t" + erroresTempParr + "\n";
 				parrafoEscrito = "";
 				contadorInternoParr = 0;
+				erroresTempParr = 0;
 				tareaTerminadaParr = true;
 			} else {
 				System.out.println("WRONG!");
