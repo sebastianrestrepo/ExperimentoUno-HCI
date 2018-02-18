@@ -1046,7 +1046,7 @@ public class Logica {
 
 			letraEscrita = Character.toString(app.key);
 			resultadosUsuario[contadorGeneral] = letrasTemp[0] + "\t"
-					+ erroresTempLetra + "\t" + tiempo + "\n";
+					+ tiempo + "\t" + erroresTempLetra + "\n";
 
 			erroresTempLetra = 0;
 		} else if(Character.toUpperCase(letrasTemp[0]) == letraOprimida) {
