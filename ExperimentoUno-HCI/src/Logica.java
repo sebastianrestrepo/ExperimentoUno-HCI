@@ -690,7 +690,7 @@ public class Logica {
 		millis = t.millis();
 		segundos = t.second();
 		minutos = t.minute();
-		tiempo = minutos + "," + segundos + "," + millis;
+		tiempo = segundos + "," + millis;
 		setFuenteRegular(21, 255);
 		app.textAlign(app.LEFT, app.LEFT);
 		app.text(tiempo, 1100, 650);
