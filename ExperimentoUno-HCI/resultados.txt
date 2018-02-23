@@ -1,57 +1,13 @@
-Usuario: Ana Palma
-Ocupacion: Estudiante
-Carrera: Antropologia
-Edad: 20
-Genero: Femenino
+Usuario: 
+Ocupacion: 
+Carrera: 
+Edad: 
+Genero: null
 
-f	0	0,1,145
-p	0	0,0,762
-q	0	0,0,583
-n	0	0,0,765
-v	0	0,0,799
-s	0	0,0,765
-y	0	0,0,890
-m	0	0,0,838
-a	0	0,0,746
-r	0	0,0,800
-k	0	0,0,932
-x	0	0,0,981
-t	0	0,0,906
-i	0	0,0,830
-z	0	0,0,924
-ñ	0	0,1,228
-h	0	0,0,852
-w	0	0,0,969
-o	0	0,0,887
-g	0	0,0,897
-e	0	0,0,835
-b	0	0,0,837
-u	0	0,0,837
-d	0	0,0,958
-j	0	0,0,835
-flor	0,1,327	0
-vivir	0,1,154	0
-reir	0,1,157	0
-rosa	0,1,65	0
-zorro	0,1,122	0
-cielo	0,1,333	0
-sueño	0,1,304	0
-amigo	0,1,196	0
-tiempo	0,1,402	0
-planeta	0,1,405	0
-esencial	0,1,654	0
-alegria	0,1,370	0
-realizar	0,1,716	0
-misterio	0,2,27	1
-principito	0,2,745	2
-privilegio	0,1,828	0
-sabiduria	0,1,741	0
-fastidioso	0,1,694	0
-astronomia	0,2,820	5
-tranquilamente	0,2,193	0
-fue el tiempo que pasaste con tu rosa lo que la hizo tan importante	0,13,301	13
-el se enamora de sus flores y no de sus raices y en otoño no supo que hacer	0,13,195	9
-cuando el misterio es demasiado impresionante es imposible desobedecer	0,10,839	5
-yo puedo juzgarme a mi mismo en cualquier parte y no tengo necesidad de vivir aqui	0,14,153	2
-lo esencial es invisible a los ojos repitio el principito para acordarse	0,12,735	6
-me pregunto si las estrellas se iluminan con el fin de que algun dia cada uno pueda encontrar la suya	0,17,427	9
+f	0,536	0
+p	1,267	0
+q	1,229	0
+n	21,552	1
+v	1,51	0
+s	1,51	1
+nullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnullnull

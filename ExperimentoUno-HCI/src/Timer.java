@@ -42,7 +42,7 @@ public class Timer extends Thread {
 	 * Devuelve los segundos reproducidos
 	 */
 	int second() {
-		return (tiempoReproducido() / 1000) % 60;
+		return (tiempoReproducido() / 1000);
 	}
 
 	/*
