@@ -30,6 +30,13 @@ public class Logica {
 	 * 
 	 */
 	
+	//ATENCIÓN: Coloque aquí el número de prueba que va a realizar//
+	private String numeroDePrueba = "2";
+	
+	private String nombreTexto = "texto" + numeroDePrueba + ".txt";
+	private String audio1 = "AudioUnoPrueba" + numeroDePrueba + ".mp3";
+	private String audio2 = "AudioDosPrueba" + numeroDePrueba + ".mp3";
+	
 	private PApplet app;
 	private Timer t;
 	private String tiempo;
@@ -202,10 +209,8 @@ public class Logica {
 		minim = new Minim(app);
 		audioBueno = minim.loadSample("../data/Bueno.mp3", 512);
 		audioMalo = minim.loadSample("../data/Malo.mp3", 512);
-		_parr1 = minim.loadFile("../data/Audio 1 Lento.mp3",512);
-		_parr2 = minim.loadFile("../data/Audio 2 Lento.mp3", 512);
-		parr1 = minim.loadSample("../data/Audio 1 Lento.mp3",512);
-		parr2 = minim.loadSample("../data/Audio 2 Lento.mp3", 512);
+		parr1 = minim.loadSample("../data/" + audio1,512);
+		parr2 = minim.loadSample("../data/" + audio2, 512);
 		errores = 0;
 		erroresTempLetra = 0;
 		erroresTempOr = 0;
@@ -226,7 +231,7 @@ public class Logica {
 	}
 
 	private void cargarTexto() {
-		texto = app.loadStrings("texto.txt");
+		texto = app.loadStrings(nombreTexto);
 		for (int i = 0; i < texto.length; i++) {
 			System.out.println(texto[i]);
 		}
@@ -842,7 +847,7 @@ public class Logica {
 					comenzarTiempo();
 					tiempoN4 = true;
 				}
-				
+		
 			
 			}
 		} else if (nivel==10) {
