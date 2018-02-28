@@ -1,57 +1,57 @@
-Usuario: camilo
+Usuario: victor espejo
 Ocupacion: estudiante
-Carrera: ingenieria de sistemas
-Edad: 19
+Carrera: diseño de medios interactivos
+Edad: 16
 Genero: Masculino
 
-n	1,145	0
-p	1,17	0
-q	1,66	0
-y	1,102	0
-v	1,156	0
-s	0,836	0
-m	0,956	0
-r	1,302	0
-k	1,126	0
-a	0,817	0
-f	1,746	0
-x	1,318	0
-t	1,91	0
-i	0,962	0
-z	1,132	0
-ñ	1,105	0
-j	1,766	0
-h	1,174	0
-o	1,51	0
-g	1,244	0
-e	1,122	0
-b	1,254	0
-w	1,298	0
-u	1,146	0
-d	0,888	0
-ayer	2,735	0
-huir	2,762	0
-vela	2,539	1
-ahora	3,236	0
-barco	2,244	0
-cueva	3,713	0
-genio	2,469	0
-heroe	2,886	0
-objeto	4,44	0
-navegar	4,385	0
-recoger	3,395	0
-sumergir	4,403	0
-servicio	3,230	0
-universo	4,634	0
-televisor	5,289	1
-detergente	3,734	0
-civilizado	4,480	0
-adivinanza	4,608	0
-escarabajo	4,825	0
-vacacionabamos	8,535	2
-la niña crecio independiente sin cachetes rosados ni ojos brillantes	29,459	1
-enseñar a quien no quiere aprender es como sembrar un campo sin ararlo	32,755	6
-para una mente bien preparada la muerte es solo la siguiente gran aventura	32,252	2
-cuando la vida cambia y se presenta mas dificil tu tienes el poder de cambiar y hacerte mas fuerte	44,137	4
-la verdadera ignorancia no es la ausencia de conocimiento sino la negativa a adquirirlo	39,702	6
-muchas personas son demasiado educadas para hablar con la boca llena pero no les importa hacerlo con la cabeza hueca	41,843	2
+n	0,915	0
+p	1,191	0
+q	1,156	0
+y	2,908	0
+v	1,515	0
+s	1,29		0
+m	1,85		0
+r	1,551	0
+k	2,298	0
+a	0,978	0
+f	3,106	0
+x	3,380	0
+t	1,602	0
+i	1,192	0
+z	1,156	0
+ñ	1,225	0
+j	2,627	0
+h	1,790	0
+o	1,190	0
+g	1,676	0
+e	1,33		0
+b	2,351	0
+w	2,895	0
+u	2,407	0
+d	1,116	0
+ayer	3,306	0
+huir	4,524	0
+vela	3,614	0
+ahora	3,634	0
+barco	7,778	0
+cueva	7,10		0
+genio	3,165	0
+heroe	4,316	0
+objeto	6,297	0
+navegar	4,922	0
+recoger	6,696	0
+sumergir	6,373	0
+servicio	4,802	0
+universo	5,474	0
+televisor	6,97		0
+detergente	7,47		0
+civilizado	8,714	0
+adivinanza	3,882	0
+escarabajo	9,854	0
+vacacionabamos	15,930	0
+la niña crecio independiente sin cachetes rosados ni ojos brillantes	38,669	3
+enseñar a quien no quiere aprender es como sembrar un campo sin ararlo	44,259	0
+para una mente bien preparada la muerte es solo la siguiente gran aventura	43,146	1
+cuando la vida cambia y se presenta mas dificil tu tienes el poder de cambiar y hacerte mas fuerte	69,-59548	0
+la verdadera ignorancia no es la ausencia de conocimiento sino la negativa a adquirirlo	68,-59722	3
+muchas personas son demasiado educadas para hablar con la boca llena pero no les importa hacerlo con la cabeza hueca	70,-59528	1
